@@ -32,10 +32,6 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int EditAnswer=0x7f060009;
-        public static final int EditQuestion=0x7f060008;
-        public static final int EditSubject=0x7f060007;
-        public static final int ScrollView01=0x7f060006;
         public static final int action_flip=0x7f060001;
         /** 
         These action bar item IDs (menu item IDs) are defined here for
@@ -46,20 +42,27 @@ public final class R {
     
          */
         public static final int action_next=0x7f060000;
-        public static final int action_settings=0x7f060011;
-        public static final int btnCreateProduct=0x7f06000d;
+        public static final int answer=0x7f06000a;
+        public static final int answer_text=0x7f060011;
+        public static final int btnCreateProduct=0x7f060008;
         public static final int btnDelete=0x7f06000f;
         public static final int btnSave=0x7f06000e;
-        public static final int btnViewCards=0x7f060003;
-        public static final int description=0x7f060005;
+        public static final int decription=0x7f06000d;
+        public static final int description=0x7f060004;
+        public static final int flash_card_text=0x7f060014;
         public static final int flashcard=0x7f060002;
-        public static final int inputDesc=0x7f06000c;
-        public static final int inputName=0x7f06000a;
-        public static final int inputPrice=0x7f06000b;
-        public static final int menu_add_cards=0x7f060012;
-        public static final int menu_get_cards=0x7f060013;
-        public static final int name=0x7f060004;
-        public static final int pid=0x7f060010;
+        public static final int flashcard_back=0x7f060010;
+        public static final int flashcard_front=0x7f060012;
+        public static final int inputDesc=0x7f060007;
+        public static final int inputName=0x7f060005;
+        public static final int inputPrice=0x7f060006;
+        public static final int menu_create_object=0x7f060015;
+        public static final int menu_get_update=0x7f060016;
+        public static final int name=0x7f060003;
+        public static final int question=0x7f060009;
+        public static final int question_text=0x7f060013;
+        public static final int save=0x7f06000c;
+        public static final int subject=0x7f06000b;
     }
     public static final class integer {
         public static final int card_flip_time_full=0x7f070000;
@@ -68,17 +71,17 @@ public final class R {
     public static final class layout {
         public static final int activity_flash_card=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int activity_newcard=0x7f030002;
-        public static final int add_cards=0x7f030003;
-        public static final int all_cards=0x7f030004;
-        public static final int edit_card=0x7f030005;
-        public static final int fragment_card_back=0x7f030006;
-        public static final int fragment_card_front=0x7f030007;
-        public static final int list_item=0x7f030008;
+        public static final int add_cards=0x7f030002;
+        public static final int all_cards=0x7f030003;
+        public static final int dialog_add_card=0x7f030004;
+        public static final int dialog_create_deck=0x7f030005;
+        public static final int edit_card=0x7f030006;
+        public static final int fragment_card_back=0x7f030007;
+        public static final int fragment_card_front=0x7f030008;
+        public static final int fragment_card_slide=0x7f030009;
     }
     public static final class menu {
-        public static final int flash_card=0x7f0a0000;
-        public static final int main_menu=0x7f0a0001;
+        public static final int main_menu=0x7f0a0000;
     }
     public static final class string {
         public static final int action_add_item=0x7f080008;
@@ -92,11 +95,14 @@ public final class R {
         /**  Actions 
          */
         public static final int action_toggle=0x7f080007;
-        /**   Activities 
+        /**  Activities 
          */
         public static final int add_card=0x7f080006;
         public static final int answer_text=0x7f080005;
         public static final int app_name=0x7f080000;
+        /**  Buttons 
+         */
+        public static final int button_save=0x7f08001d;
         public static final int card_back_description=0x7f080015;
         /**  Other strings 
          */
@@ -112,12 +118,15 @@ public final class R {
          */
         public static final int message_empty_layout_changes=0x7f08000f;
         public static final int message_zoom_touch_expand=0x7f080010;
-        public static final int prompt_answer=0x7f080019;
-        public static final int prompt_question=0x7f080018;
+        public static final int prompt_answer=0x7f08001b;
         /**  Prompts 
          */
-        public static final int prompt_subject=0x7f080017;
+        public static final int prompt_deck=0x7f080017;
+        public static final int prompt_description=0x7f080018;
+        public static final int prompt_question=0x7f08001a;
+        public static final int prompt_subject=0x7f080019;
         public static final int question_text=0x7f080004;
+        public static final int title_activity_create_deck=0x7f08001c;
         public static final int true_button=0x7f080002;
     }
     public static final class style {

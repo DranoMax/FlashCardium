@@ -3,9 +3,9 @@ package com.hatstick.flashcardium.tools;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hatstick.flashcardium.Card;
-import com.hatstick.flashcardium.Deck;
 import com.hatstick.flashcardium.R;
+import com.hatstick.flashcardium.entities.Card;
+import com.hatstick.flashcardium.entities.Deck;
 
 import android.content.Context;
 import android.view.LayoutInflater;

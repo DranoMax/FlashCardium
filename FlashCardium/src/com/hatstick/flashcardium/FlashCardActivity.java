@@ -1,22 +1,36 @@
 package com.hatstick.flashcardium;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hatstick.flashcardium.entities.Card;
+import com.hatstick.flashcardium.tools.DatabaseHandler;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.ViewParent;
 import android.widget.TextView;
 
-public class FlashCardActivity extends Activity 
+
+public class FlashCardActivity extends FragmentActivity
 implements FragmentManager.OnBackStackChangedListener {
 	/**
 	 * A handler object, used for deferring UI operations.
@@ -33,78 +47,59 @@ implements FragmentManager.OnBackStackChangedListener {
 	static final int MIN_WAIT= 500;
 	//variable for calculating the total time
 	private long duration = MIN_WAIT;
-	
-	 Button btnViewCards;
+
+	private DatabaseHandler db;
+
+	private List<Card> cardList = new ArrayList<Card>();
+
+	private String deckName;
+
+	/**
+	 * The pager widget, which handles animation and allows swiping horizontally to access previous
+	 * and next wizard steps.
+	 */
+	private ViewPager mPager;
+
+	/**
+	 * The pager adapter, which provides the pages to the view pager widget.
+	 */
+	private PagerAdapter mPagerAdapter;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_flash_card);
-		
-		// Buttons
-        btnViewCards = (Button) findViewById(R.id.btnViewCards);
-        
-     // view products click event
-        btnViewCards.setOnClickListener(new View.OnClickListener() {
- 
-            @Override
-            public void onClick(View view) {
-                // Launching All products Activity
-                Intent i = new Intent(getApplicationContext(), AllCardsActivity.class);
-                startActivity(i);
- 
-            }
-        });
 
+		db = new DatabaseHandler(this);
+
+		Intent intent = getIntent();
+		deckName = intent.getExtras().getString("deck");
+
+		cardList = db.getCardsFromDeck(deckName);
+
+		// Instantiate a ViewPager and a PagerAdapter.
+		mPager = (ViewPager) findViewById(R.id.flashcard);
+		mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+		mPager.setAdapter(mPagerAdapter);
+		
 		if (savedInstanceState == null) {
+			CardFrontFragment frontFrag = new CardFrontFragment();
 			// If there is no saved instance state, add a fragment representing the
 			// front of the card to this activity. If there is saved instance state,
 			// this fragment will have already been added to the activity.
 			getFragmentManager()
 			.beginTransaction()
-			.add(R.id.flashcard, new CardFrontFragment())
+			.add(R.id.flashcard, frontFrag)
 			.commit();
 		} else {
 			mShowingBack = (getFragmentManager().getBackStackEntryCount() > 0);
 		}
-
 		// Monitor back stack changes to ensure the action bar shows the appropriate
 		// button (either "photo" or "info").
 		getFragmentManager().addOnBackStackChangedListener(this);
 	}
-	/*
-		@Override
-		public boolean onCreateOptionsMenu(Menu menu) {
-			super.onCreateOptionsMenu(menu);
 
-			// Add either a "photo" or "finish" button to the action bar, depending on which page
-			// is currently selected.
-			MenuItem item = menu.add(Menu.NONE, R.id.action_flip, Menu.NONE,
-					mShowingBack
-					? R.string.action_photo
-							: R.string.action_info);
-
-			item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-			return true;
-		}
-
-		@Override
-		public boolean onOptionsItemSelected(MenuItem item) {
-			switch (item.getItemId()) {
-			case android.R.id.home:
-				// Navigate "up" the demo structure to the launchpad activity.
-				// See http://developer.android.com/design/patterns/navigation.html for more.
-				NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
-				return true;
-
-			case R.id.action_flip:
-				flipCard();
-				return true;
-			}
-
-			return super.onOptionsItemSelected(item);
-		}
-	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent e) {
 
@@ -120,6 +115,37 @@ implements FragmentManager.OnBackStackChangedListener {
 		return true;
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.menu_create_object:
+			addCard();
+			return true;
+
+		case R.id.menu_get_update:
+			//		getCards();
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void addCard() {
+		Intent i = new Intent(this, NewCardActivity.class);
+		i.putExtra("deck", deckName);
+		startActivity(i);
+	}
+
 	private void flipCard() {
 		if (mShowingBack) {
 			getFragmentManager().popBackStack();
@@ -130,6 +156,7 @@ implements FragmentManager.OnBackStackChangedListener {
 
 		mShowingBack = true;
 
+		CardBackFragment backFrag = new CardBackFragment();
 		// Create and commit a new fragment transaction that adds the fragment for the back of
 		// the card, uses custom animations, and is part of the fragment manager's back stack.
 
@@ -147,7 +174,7 @@ implements FragmentManager.OnBackStackChangedListener {
 				// Replace any fragments currently in the container view with a fragment
 				// representing the next page (indicated by the just-incremented currentPage
 				// variable).
-				.replace(R.id.flashcard, new CardBackFragment())
+				.replace(R.id.flashcard, backFrag)
 
 				// Add this transaction to the back stack, allowing users to press Back
 				// to get to the front of the card.
@@ -174,18 +201,55 @@ implements FragmentManager.OnBackStackChangedListener {
 		// When the back stack changes, invalidate the options menu (action bar).
 		invalidateOptionsMenu();
 	}
+	
+	/**
+	 * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+	 * sequence.
+	 */
+	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+		public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fragmentManager) {
+			super(fragmentManager);
+		}
+
+		@Override
+		public FlashCardFragment getItem(int position) {
+			FlashCardFragment frag = new FlashCardFragment();
+			frag.setText(cardList.get(position).getQuestion());
+			return frag;
+		}
+
+		@Override
+		public int getCount() {
+			return cardList.size();
+		}
+	}
 
 	/**
 	 * A fragment representing the front of the card.
 	 */
 	public static class CardFrontFragment extends Fragment {
+
+		private View frontView;
+
 		public CardFrontFragment() {
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			return inflater.inflate(R.layout.fragment_card_front, container, false);
+			Log.d("front","here");
+			LayoutInflater lf = getActivity().getLayoutInflater();
+
+			frontView = lf.inflate(R.layout.fragment_card_front, container, false);
+
+			return frontView;
+		}
+
+		public void setText(String question) {
+
+			TextView questionText2 = (TextView) frontView.findViewById(R.id.question_text);
+
+			questionText2.setText(question);
 		}
 	}
 
@@ -199,7 +263,9 @@ implements FragmentManager.OnBackStackChangedListener {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			return inflater.inflate(R.layout.fragment_card_back, container, false);
+			View backView = inflater.inflate(R.layout.fragment_card_back, container, false);
+
+			return backView;
 		}
 	}
 }

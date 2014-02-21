@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.hatstick.flashcardium.Card;
-import com.hatstick.flashcardium.Deck;
+import com.hatstick.flashcardium.entities.Card;
+import com.hatstick.flashcardium.entities.Deck;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -40,15 +40,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		
+		Log.d("Db","Creating");
+		
 		String CREATE_DECKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_DECKS + "(" +
 				KEY_DECK + " TEXT PRIMARY KEY," +
 				KEY_DESCRIPTION + " TEXT," + KEY_AUTHOR + " TEXT" + ")";
 		db.execSQL(CREATE_DECKS_TABLE);	
 		
 		String CREATE_CARDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CARDS + "(" +
-				KEY_ID + " INTEGER PRIMARY KEY," +
+				KEY_ID + " INTEGER PRIMARY KEY," + KEY_DECK + " Text," + 
 				KEY_SUBJECT + " TEXT," + KEY_QUESTION + " TEXT," +
-				KEY_ANSWER + " TEXT" + ")";
+				KEY_ANSWER + " TEXT, " + 
+				" FOREIGN KEY "+"("+KEY_DECK+")"+
+				" REFERENCES " + TABLE_DECKS +"("+KEY_DECK+")"+
+				" ON DELETE CASCADE" + ")";
 		db.execSQL(CREATE_CARDS_TABLE);
 	}
 
@@ -103,6 +108,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
+		values.put(KEY_DECK, card.getDeck());
 		values.put(KEY_SUBJECT, card.getSubject());
 		values.put(KEY_QUESTION, card.getQuestion());
 		values.put(KEY_ANSWER, card.getAnswer());
@@ -128,7 +134,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public List<Card> getCardsFromDeck(String deck) {
 		List<Card> cardList = new ArrayList<Card>();
 		
-		String selectQuery = "SELECT * FROM " + TABLE_CARDS + " WHERE " + KEY_DECK + "=" + deck;
+		String selectQuery = "SELECT * FROM " + TABLE_CARDS + " WHERE " + KEY_DECK + "=\"" + deck +"\"";
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -137,9 +143,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			do {
 				Card card = new Card();
 				card.setId(Integer.parseInt(cursor.getString(0)));
-				card.setSubject(cursor.getString(1));
-				card.setQuestion(cursor.getString(2));
-				card.setAnswer(cursor.getString(3));
+				card.setDeck(cursor.getString(1));
+				card.setSubject(cursor.getString(2));
+				card.setQuestion(cursor.getString(3));
+				card.setAnswer(cursor.getString(4));
 				
 				cardList.add(card);
 			} while(cursor.moveToNext());
@@ -159,9 +166,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			do {
 				Card card = new Card();
 				card.setId(Integer.parseInt(cursor.getString(0)));
-				card.setSubject(cursor.getString(1));
-				card.setQuestion(cursor.getString(2));
-				card.setAnswer(cursor.getString(3));
+				card.setDeck(cursor.getString(1));
+				card.setSubject(cursor.getString(2));
+				card.setQuestion(cursor.getString(3));
+				card.setAnswer(cursor.getString(4));
 				
 				cardList.add(card);
 			} while(cursor.moveToNext());
@@ -187,7 +195,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				new String[] { String.valueOf(card.getId()) });
 		db.close();
 	}
-	
-	
-	
 }

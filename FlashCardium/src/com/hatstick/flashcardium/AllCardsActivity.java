@@ -71,14 +71,14 @@ public class AllCardsActivity extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
                 // getting values from selected ListItem
-                String pid = ((TextView) view.findViewById(R.id.pid)).getText()
-                        .toString();
+        //        String pid = ((TextView) view.findViewById(R.id.pid)).getText()
+        //                .toString();
  
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(),
                         EditCardActivity.class);
                 // sending pid to next activity
-                in.putExtra(TAG_PID, pid);
+        //        in.putExtra(TAG_PID, pid);
  
                 // starting new activity and expecting some response back
                 startActivityForResult(in, 100);
@@ -188,13 +188,13 @@ public class AllCardsActivity extends ListActivity {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(
-                            AllCardsActivity.this, cardsList,
-                            R.layout.list_item, new String[] { TAG_PID,
-                                    TAG_NAME},
-                            new int[] { R.id.pid, R.id.name });
+            //        ListAdapter adapter = new SimpleAdapter(
+              //              AllCardsActivity.this, cardsList,
+            //                R.layout.list_item, new String[] { TAG_PID,
+                 //                   TAG_NAME},
+           //                 new int[] { R.id.pid, R.id.name });
                     // updating listview
-                    setListAdapter(adapter);
+                //    setListAdapter(adapter);
                 }
             });
  

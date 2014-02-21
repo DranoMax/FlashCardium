@@ -4,14 +4,14 @@
     <string name="app_name">FlashCardium</string>
     <string name="action_settings">Settings</string>
     <string name="true_button">True</string>
-	<string name="false_button">False</string>
-	<string name="question_text">Are you gay?</string>
-	<string name="answer_text">I am gay!</string>
-	
-	<!--  Activities -->
-	<string name="add_card">Add Card</string>
-	
-	<!-- Actions -->
+    <string name="false_button">False</string>
+    <string name="question_text">Are you gay?</string>
+    <string name="answer_text">I am gay!</string>
+
+    <!-- Activities -->
+    <string name="add_card">Add Card</string>
+
+    <!-- Actions -->
     <string name="action_toggle">Toggle indicator</string>
     <string name="action_add_item">Add item</string>
     <string name="action_remove_item">Remove item</string>
@@ -20,7 +20,7 @@
     <string name="action_finish">Finish</string>
     <string name="action_info">Photo info</string>
     <string name="action_photo">View photo</string>
-    
+
     <!-- Messages -->
     <string name="message_empty_layout_changes">Add an item above to get started.</string>
     <string name="message_zoom_touch_expand">Touch a photo to expand it.</string>
@@ -34,10 +34,16 @@
     <string name="card_back_title">Angry Red Android</string>
     <string name="card_back_description"><![CDATA[Lorem ipsum dolor sit]]></string>
     <string name="lorem_ipsum"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et magna ut erat elementum cursus in quis ipsum. Nam faucibus ultrices eros, vel tempor leo semper sit amet. Duis magna quam, congue vitae interdum nec, condimentum ut lectus. Sed commodo venenatis eros a dignissim. Nunc adipiscing turpis nec magna venenatis at ultricies ipsum bibendum. Sed volutpat urna quis nisi vulputate egestas. Etiam eu dui a enim lacinia dapibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\n\nPhasellus orci mi, eleifend nec congue id, volutpat at neque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper velit vel leo rutrum sed fermentum elit porta.]]></string>
-    
+
     <!-- Prompts -->
-    <string name="prompt_subject">i.e. "Math"</string>
-	<string name="prompt_question">1+1=?</string>
-	<string name="prompt_answer">2</string>
+    <string name="prompt_deck">Deck name</string>
+    <string name="prompt_description">Description</string>
+    <string name="prompt_subject">Subject</string>
+    <string name="prompt_question">Question</string>
+    <string name="prompt_answer">Answer</string>
+    <string name="title_activity_create_deck">CreateDeck</string>
     
+    <!-- Buttons -->
+    <string name="button_save">Save</string>
+
 </resources>

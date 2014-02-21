@@ -5,14 +5,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.hatstick.flashcardium.entities.Card;
+import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.CardArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +25,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -28,30 +34,35 @@ public class MainActivity extends ListActivity {
 
 	private List<Deck> deckList = new ArrayList<Deck>();
 	private List<Card> cardsList = new ArrayList<Card>();
+	private DatabaseHandler db;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//	setContentView(R.layout.activity_main);
 
-		DatabaseHandler db = new DatabaseHandler(this);
+		db = new DatabaseHandler(this);
 		createDatabase(db);
-
+		
 		setListAdapter(new CardArrayAdapter(this,deckList));
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
-		
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// Load deck's cards into list
-		//		cardsList = db.getCardsFromDeck(((TextView)view).getText().toString());
-				// Begin flashcard session
-				//String test = ((TextView)arg1).getText().toString();
-		//		Log.d("Clicked",);
-			}
-		});
+			
+	}
+	
+	@Override
+	  protected void onListItemClick(ListView l, View v, int position, long id) {
+	    Deck deck = (Deck) getListAdapter().getItem(position);
+	 
+	    Intent i = new Intent(this, FlashCardActivity.class);
+	    i.putExtra("deck", deck.getName());
+	    startActivity(i);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		onContentChanged();
 	}
 
 	@Override
@@ -66,11 +77,11 @@ public class MainActivity extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case R.id.menu_add_cards:
-			addCards();
+		case R.id.menu_create_object:
+			createDeck();
 			return true;
 
-		case R.id.menu_get_cards:
+		case R.id.menu_get_update:
 			getCards();
 			return true;
 
@@ -100,22 +111,28 @@ public class MainActivity extends ListActivity {
 
 		/*
 		 Log.d("Insert: ", "Inserting..");
-		 db.addCard(new Card("Math","1+1","2"));
-		 db.addCard(new Card("Math","1+2","3"));
-		 db.addCard(new Card("Math","2+2","4"));
-		 db.addCard(new Card("Math","2+3","5"));
+		 db.addCard(new Card("Math","1+1","2"), "Math 101");
+		 db.addCard(new Card("Math","1+2","3"), "Math 101");
+		 db.addCard(new Card("Math","2+2","4"), "Math 101");
+		 db.addCard(new Card("Math","2+3","5"), "Math 101");
 		 */
 		Log.d("Reading: ", "Reading all cards..");
 		cardsList = db.getAllCards();
 		for (Card card : cardsList) {
-			String log = "Id: " +card.getId()+", Subject: "+card.getSubject()+
+			String log = "Id: " +card.getId()+ " Deck: " + card.getDeck() + ", Subject: "+card.getSubject()+
 					", Question: "+card.getQuestion();
 			Log.d("Name: ", log);
 		}
+		
+	}
+	
+	private void createDeck() {
+		Intent i = new Intent(MainActivity.this, CreateDeckActivity.class);
+		startActivity(i);
 	}
 
-	private void addCards() {
-		Intent i = new Intent(MainActivity.this, NewCardActivity.class);
+	private void startFlashCards() {
+		Intent i = new Intent(MainActivity.this, FlashCardActivity.class);
 		startActivity(i);
 	}
 
