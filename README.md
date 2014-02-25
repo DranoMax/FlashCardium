@@ -11,4 +11,4 @@ Features
 * Users can then flip through the cards of a deck to test their knowledge.
     
 ## Great for the whole family! ##
-# Download today! #
+Download today! 
