@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +27,7 @@ public class FlashCardActivity extends FragmentActivity {
 
 	private long startTime;
 	//constant for defining the time to wait between clicks
-	static final int MIN_WAIT= 500;
+	static final int MIN_WAIT= 250;
 	//variable for calculating the total time
 	private long duration = MIN_WAIT;
 
@@ -160,13 +159,12 @@ public class FlashCardActivity extends FragmentActivity {
 	 * Useful to keep card from flipping more than once in same touch.
 	 */
 	private void screenTouched() {
+		duration+= (System.currentTimeMillis()-startTime);
 		if (duration >= MIN_WAIT) {
 			duration = 0;
 			startTime = System.currentTimeMillis();
 
 			flipCard();
-		}else {
-			duration+= (System.currentTimeMillis()-startTime);
 		}
 	}
 

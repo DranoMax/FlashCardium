@@ -76,11 +76,12 @@ public final class R {
         public static final int activity_newcard=0x7f030002;
         public static final int add_cards=0x7f030003;
         public static final int all_cards=0x7f030004;
-        public static final int dialog_add_card=0x7f030005;
-        public static final int dialog_create_deck=0x7f030006;
-        public static final int edit_card=0x7f030007;
-        public static final int fragment_card_slide=0x7f030008;
-        public static final int list_item=0x7f030009;
+        public static final int card_array_adapter=0x7f030005;
+        public static final int dialog_add_card=0x7f030006;
+        public static final int dialog_create_deck=0x7f030007;
+        public static final int edit_card=0x7f030008;
+        public static final int fragment_card_slide=0x7f030009;
+        public static final int list_item=0x7f03000a;
     }
     public static final class menu {
         public static final int flash_card=0x7f0a0000;
