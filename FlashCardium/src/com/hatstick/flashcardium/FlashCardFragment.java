@@ -1,34 +1,40 @@
 package com.hatstick.flashcardium;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-public class FlashCardFragment extends Fragment  {
-	
-	private View view;
-	
+public class FlashCardFragment extends Fragment {
+
+	public static final String Question = "Question";
+	private View v;
+
+	public static final FlashCardFragment newInstance(String message)
+	{
+		FlashCardFragment f = new FlashCardFragment();
+		Bundle bdl = new Bundle(1);
+		bdl.putString(Question, message);
+		f.setArguments(bdl);
+		return f;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		String message = getArguments().getString(Question);
+		v = inflater.inflate(R.layout.fragment_card_slide, container,false);
+		TextView textView = (TextView)v.findViewById(R.id.flash_card_text);
+		textView.setText(message);
 		// -- inflate the layout for this fragment
-	    View view = inflater.inflate(R.layout.fragment_card_slide, container,false);
-
-	    // Set the Text to try this out
-	    TextView t = (TextView) view.findViewById(R.id.flash_card_text);
-	    t.setText("Blank");
-		return view;
+		return v;
 	}
-	
+
 	public void setText(String text){
-        TextView textView = (TextView)view.findViewById(R.id.flash_card_text);
-        textView.setText(text);
-    }
+		TextView textView = (TextView)v.findViewById(R.id.flash_card_text);
+		textView.setText(text);
+	}
 }

@@ -23,17 +23,17 @@
         </activity>
         <activity
             android:name="com.hatstick.flashcardium.FlashCardActivity"
-            android:label="@string/add_card">
+            android:label="@string/title_empty_deck">
         </activity>
         <activity
             android:name="com.hatstick.flashcardium.NewCardActivity"
-            android:label="@string/add_card"
+            android:label="@string/title_new_card"
             android:theme="@android:style/Theme.Holo.Dialog" >
         </activity>
         <activity
             android:theme="@android:style/Theme.Holo.Dialog"
             android:name="com.hatstick.flashcardium.CreateDeckActivity"
-            android:label="@string/title_activity_create_deck" >
+            android:label="@string/title_new_deck" >
         </activity>
         <!-- All Database Activity -->
         <activity

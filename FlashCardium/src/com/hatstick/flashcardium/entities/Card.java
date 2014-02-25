@@ -18,6 +18,13 @@ public class Card {
 		this.setAnswer(answer);
 	}
 	
+	public Card(String deck, String subject, String question, String answer) {
+		this.setDeck(deck);
+		this.setSubject(subject);
+		this.setQuestion(question);
+		this.setAnswer(answer);
+	}
+	
 	public Card(int id, String subject, String question, String answer) {
 		this.setId(id);
 		this.setSubject(subject);

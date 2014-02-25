@@ -1,7 +1,5 @@
 package com.hatstick.flashcardium.entities;
 
-import java.sql.Timestamp;
-
 public class Deck {
 
 	private String name;
