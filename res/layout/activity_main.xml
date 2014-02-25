@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:stretchColumns="1" >
+
+    <!-- List of decks available -->
+
+    <TableRow
+        android:layout_width="fill_parent">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:singleLine="true"
+            android:textSize="26sp"
+            android:textStyle="bold" >
+        </TextView>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent">
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:textSize="15sp"
+            android:singleLine="true" >
+        </TextView>
+    </TableRow>
+
+</TableLayout>
