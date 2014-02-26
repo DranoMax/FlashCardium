@@ -194,4 +194,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				new String[] { String.valueOf(card.getId()) });
 		db.close();
 	}
+	
+	public void deleteDeck(String deck) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_DECKS, KEY_DECK + " = ?",
+				new String[] { deck });
+		db.close();
+	}
 }

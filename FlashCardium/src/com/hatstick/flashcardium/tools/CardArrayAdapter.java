@@ -1,6 +1,8 @@
 package com.hatstick.flashcardium.tools;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.hatstick.flashcardium.R;
@@ -35,4 +37,15 @@ public class CardArrayAdapter extends ArrayAdapter<Deck>{
 		
 		return rowView;
 	}
+	
+	public void sortDecks() {
+
+		Collections.sort(deckList, new Comparator<Deck>(){
+			@Override
+			public int compare(Deck deck1, Deck deck2) {
+				return deck1.getName().compareToIgnoreCase(deck2.getName());
+			}
+		});
+	}
+
 }
