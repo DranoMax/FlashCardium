@@ -30,5 +30,7 @@
 
     <!-- Buttons -->
     <string name="button_save">Save</string>
+    <string name="title_activity_edit_deck">EditDeckActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

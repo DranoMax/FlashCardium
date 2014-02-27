@@ -26,7 +26,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 public class MainActivity extends ListActivity {
-	
+
 	private List<Card> cardsList = new ArrayList<Card>();
 
 	private Context context = this;
@@ -37,7 +37,7 @@ public class MainActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//	setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main);
 
 		db = new DatabaseHandler(this);
 		createDatabase(db);
@@ -45,7 +45,7 @@ public class MainActivity extends ListActivity {
 		adapter = new CardArrayAdapter(this,db.getAllDecks());
 		adapter.sortDecks();
 		setListAdapter(adapter);
-		
+
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 
@@ -138,13 +138,13 @@ public class MainActivity extends ListActivity {
 		db.createDeck(new Deck("Computer Class", "", "Stan"));
 		 */
 
-/*
+		/*
 		Log.d("Reading: ", "Reading all decks..");
 		for (Deck deck : deckList) {
 			String log = "name " + deck.getName();
 			Log.d("Name: ", log);
 		}
-*/
+		 */
 		/*
 		 Log.d("Insert: ", "Inserting..");
 		 db.addCard(new Card("Math 101","Math","1+1","2"));
