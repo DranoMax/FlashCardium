@@ -1,15 +1,15 @@
 package com.hatstick.flashcardium;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.CardArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
+import com.larphoid.overscrolllistview.OverscrollListview;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -21,11 +21,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity {
 
 	private List<Card> cardsList = new ArrayList<Card>();
 
@@ -44,12 +45,24 @@ public class MainActivity extends ListActivity {
 
 		adapter = new CardArrayAdapter(this,db.getAllDecks());
 		adapter.sortDecks();
-		setListAdapter(adapter);
 
-		ListView listView = getListView();
+		final OverscrollListview listView = (OverscrollListview)findViewById(R.id.list);
+		listView.setAdapter(adapter);
 		listView.setTextFilterEnabled(true);
-
 		listView.setLongClickable(true);
+		listView.setElasticity(.15f);
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, final View view,
+					int position, long id) {
+				Deck deck = (Deck) listView.getAdapter().getItem(position);
+				startFlashCards(deck.getName());
+
+			}
+
+		});
+
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
 				final int index = position;
@@ -87,12 +100,6 @@ public class MainActivity extends ListActivity {
 				return true;
 			}
 		});
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		Deck deck = (Deck) getListAdapter().getItem(position);
-		startFlashCards(deck.getName());
 	}
 
 	@Override
