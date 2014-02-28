@@ -18,5 +18,13 @@ public class EditDeckActivity extends Activity {
 		getMenuInflater().inflate(R.menu.edit_deck, menu);
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() 
+	{
+	    this.finish();
+	    overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
+	    return;
+	}
 
 }

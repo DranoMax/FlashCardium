@@ -109,6 +109,14 @@ public class FlashCardActivity extends FragmentActivity {
 		rightIn = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_in);
 	}
 
+	@Override
+	public void onBackPressed() 
+	{
+		this.finish();
+		overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
+		return;
+	}
+
 	private List<FlashCardFragment> getFragments(){
 		List<FlashCardFragment> fList = new ArrayList<FlashCardFragment>();
 		Log.d("size",""+cardList.size());

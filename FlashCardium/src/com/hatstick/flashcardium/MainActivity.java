@@ -172,16 +172,19 @@ public class MainActivity extends Activity {
 	private void createDeck() {
 		Intent i = new Intent(MainActivity.this, CreateDeckActivity.class);
 		startActivity(i);
+		overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
 	}
 
 	private void startFlashCards(String deck) {
 		Intent i = new Intent(this, FlashCardActivity.class);
 		i.putExtra("deck", deck);
 		startActivity(i);
+		overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
 	}
 
 	private void getCards() {
 		Intent i = new Intent(MainActivity.this, AllCardsActivity.class);
 		startActivity(i);
+		overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
 	}
 }

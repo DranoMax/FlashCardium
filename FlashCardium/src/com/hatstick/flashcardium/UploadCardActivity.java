@@ -3,11 +3,13 @@ import java.util.ArrayList;
 import java.util.List;
  
 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
  
+
 
 import com.hatstick.flashcardium.tools.JSONParser;
 
@@ -60,6 +62,14 @@ public class UploadCardActivity extends Activity {
             }
         });
     }
+    
+    @Override
+	public void onBackPressed() 
+	{
+	    this.finish();
+	    overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
+	    return;
+	}
  
     /**
      * Background Async Task to Create new product
