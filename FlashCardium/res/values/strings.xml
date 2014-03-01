@@ -10,6 +10,7 @@
     <string name="title_empty_deck">Empty Deck</string>
     <string name="title_new_deck">New Deck</string>
     <string name="title_new_card">New Card</string>
+    <string name="title_activity_edit_deck">Edit Deck</string>
 
     <!-- Actions -->
 
@@ -29,7 +30,6 @@
 
     <!-- Buttons -->
     <string name="button_save">Save</string>
-    <string name="title_activity_edit_deck">EditDeckActivity</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -6,24 +6,29 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.hatstick.flashcardium.R;
-import com.hatstick.flashcardium.entities.Deck;
+import com.hatstick.flashcardium.entities.Card;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class CardArrayAdapter extends ArrayAdapter<Deck>{
+public class CardArrayAdapter extends ArrayAdapter<Card>{
 	
 	private Context context;
-	private List<Deck> deckList = new ArrayList<Deck>();
+	private List<Card> cardList = new ArrayList<Card>();
 	
-	public CardArrayAdapter(Context context, List<Deck> decks) {
-		super(context, R.layout.card_array_adapter, decks);
+	public CardArrayAdapter(Context context, List<Card> cards) {
+		super(context, R.layout.card_array_adapter, cards);
 		this.context = context;
-		this.deckList = decks;
+		this.cardList = cards;
+		Log.d("HERE","MAKING ARARY");
+		for (Card card : cardList) {
+			Log.d("card",card.getQuestion()+"");
+		}
 	}
 	
 	@Override
@@ -32,20 +37,9 @@ public class CardArrayAdapter extends ArrayAdapter<Deck>{
 			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
  
 		View rowView = inflater.inflate(R.layout.card_array_adapter, parent, false);
-		((TextView)rowView.findViewById(R.id.name)).setText(deckList.get(position).getName());
-		((TextView)rowView.findViewById(R.id.description)).setText(deckList.get(position).getDescription());
+		((TextView)rowView.findViewById(R.id.question)).setText(cardList.get(position).getQuestion());
+		((TextView)rowView.findViewById(R.id.author)).setText(cardList.get(position).getAnswer());
 		
 		return rowView;
 	}
-	
-	public void sortDecks() {
-
-		Collections.sort(deckList, new Comparator<Deck>(){
-			@Override
-			public int compare(Deck deck1, Deck deck2) {
-				return deck1.getName().compareToIgnoreCase(deck2.getName());
-			}
-		});
-	}
-
 }

@@ -135,6 +135,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		String selectQuery = "SELECT * FROM " + TABLE_CARDS + " WHERE " + KEY_DECK + "=\"" + deck +"\"";
 		
+		Log.d("Query: ",selectQuery+"");
+		
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		

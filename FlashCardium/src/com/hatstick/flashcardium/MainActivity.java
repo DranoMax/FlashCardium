@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.entities.Deck;
-import com.hatstick.flashcardium.tools.CardArrayAdapter;
+import com.hatstick.flashcardium.tools.DeckArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
 import com.larphoid.overscrolllistview.OverscrollListview;
 
@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 	private Context context = this;
 
 	private DatabaseHandler db;
-	private CardArrayAdapter adapter;
+	private DeckArrayAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 		db = new DatabaseHandler(this);
 		createDatabase(db);
 
-		adapter = new CardArrayAdapter(this,db.getAllDecks());
+		adapter = new DeckArrayAdapter(this,db.getAllDecks());
 		adapter.sortDecks();
 
 		final OverscrollListview listView = (OverscrollListview)findViewById(R.id.list);
@@ -65,7 +65,9 @@ public class MainActivity extends Activity {
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
-				final int index = position;
+				// For whatever reason, the position returned by onItemLongClick is returning
+				// the position of onItemClick+1.  Thus, we -1 here.
+				final int index = position-1;
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
 				// set title
@@ -78,7 +80,10 @@ public class MainActivity extends Activity {
 						switch (which) {
 
 						case 0: // Edit
-
+							Intent i = new Intent(MainActivity.this, EditDeckActivity.class);
+							i.putExtra("deck", adapter.getItem(index).getName());
+							startActivity(i);
+							overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
 							return;
 						case 1: // Delete
 							Log.d("delete",adapter.getItem(index).getName());
