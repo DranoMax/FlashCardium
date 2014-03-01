@@ -60,11 +60,11 @@ public class EditCardActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_card);
+  //      setContentView(R.layout.edit_card);
  
         // save button
-        btnSave = (Button) findViewById(R.id.btnSave);
-        btnDelete = (Button) findViewById(R.id.btnDelete);
+  //      btnSave = (Button) findViewById(R.id.btnSave);
+ //       btnDelete = (Button) findViewById(R.id.btnDelete);
  
         // getting product details from intent
         Intent i = getIntent();

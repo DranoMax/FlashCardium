@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_array_adapter_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp"
-    android:stretchColumns="1" >
+    android:padding="5dp" 
+    android:baselineAligned="false">
 
-    <!-- List of decks available -->
+    <!-- List of cards -->
 
-    <TableRow
-        android:layout_width="fill_parent">
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
         <TextView
             android:id="@+id/question"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:ellipsize="end"
             android:gravity="left"
             android:singleLine="true"
             android:textSize="26sp"
             android:textStyle="bold" >
         </TextView>
-    </TableRow>
 
-    <TableRow
-        android:layout_width="fill_parent">
         <TextView
             android:id="@+id/author"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/question"
             android:ellipsize="end"
             android:gravity="left"
-            android:textSize="15sp"
-            android:singleLine="true" >
+            android:singleLine="true"
+            android:textSize="15sp" >
         </TextView>
-    </TableRow>
+    </RelativeLayout>
 
-</TableLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/button_delete" />
+    </RelativeLayout>
+
+</LinearLayout>

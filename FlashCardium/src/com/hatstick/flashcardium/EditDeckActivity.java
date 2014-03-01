@@ -23,15 +23,17 @@ public class EditDeckActivity extends Activity {
 	private DatabaseHandler db;
 	private CardArrayAdapter adapter;
 
+	private String deck;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_deck);
-		
+
 		Intent intent = getIntent();
-		String deck = intent.getExtras().getString("deck");
+		deck = intent.getExtras().getString("deck");
 		setTitle("Edit " + deck);
-		
+
 		db = new DatabaseHandler(this);
 
 		adapter = new CardArrayAdapter(this,db.getCardsFromDeck(deck));
@@ -46,8 +48,9 @@ public class EditDeckActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, final View view,
 					int position, long id) {
-				
-
+				Intent i = new Intent(EditDeckActivity.this, NewCardActivity.class);
+				i.putExtra("deck", deck);
+				startActivity(i);
 			}
 
 		});
@@ -70,7 +73,7 @@ public class EditDeckActivity extends Activity {
 
 							return;
 						case 1: // Delete
-							
+
 							return;
 
 						default: // Cancel
@@ -88,8 +91,8 @@ public class EditDeckActivity extends Activity {
 			}
 		});
 	}
-	
-	
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,13 +100,13 @@ public class EditDeckActivity extends Activity {
 		getMenuInflater().inflate(R.menu.edit_deck, menu);
 		return true;
 	}
-	
+
 	@Override
 	public void onBackPressed() 
 	{
-	    this.finish();
-	    overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
-	    return;
+		this.finish();
+		overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
+		return;
 	}
 
 }

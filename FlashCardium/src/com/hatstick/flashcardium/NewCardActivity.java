@@ -24,7 +24,7 @@ public class NewCardActivity extends Activity {
 
 		Intent intent = getIntent();
 		deckName = intent.getExtras().getString("deck");
-
+		
 		Button save = (Button)findViewById(R.id.save);
 		save.setOnClickListener(onSave);
 	}
@@ -39,9 +39,7 @@ public class NewCardActivity extends Activity {
 			card.setSubject(subject.getText().toString());
 			card.setDeck(deckName);
 			db.addCard(card);
-			Intent i = new Intent(NewCardActivity.this, FlashCardActivity.class);
-			i.putExtra("deck", deckName);
-			startActivity(i);
+			finish();
 		}
 	};
 }

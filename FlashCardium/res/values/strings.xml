@@ -30,6 +30,6 @@
 
     <!-- Buttons -->
     <string name="button_save">Save</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="button_delete">Delete</string>
 
 </resources>
