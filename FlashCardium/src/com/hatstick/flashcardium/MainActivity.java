@@ -51,6 +51,11 @@ public class MainActivity extends Activity {
 		listView.setTextFilterEnabled(true);
 		listView.setLongClickable(true);
 		listView.setElasticity(.15f);
+		
+		// Half-hack to stop OverScroll form sticking up above the list
+		listView.smoothScrollToPosition(20);
+		adapter.notifyDataSetChanged();
+		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -170,14 +175,14 @@ public class MainActivity extends Activity {
 		}
 
 	}
-	
+
 	protected void onActivityResult(int requestCode, int resultCode,
-	          Intent data) {
-	      if (requestCode == 1) {
-	          if (resultCode == RESULT_OK) {
-	            Log.d("FUCK","YOU");
-	          }
-	      }
+			Intent data) {
+		if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				Log.d("FUCK","YOU");
+			}
+		}
 	}
 
 	private void createDeck() {
