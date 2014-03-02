@@ -46,7 +46,7 @@ public class FlashCardActivity extends FragmentActivity {
 	/**
 	 * The pager adapter, which provides the pages to the view pager widget.
 	 */
-	private PagerAdapter mPagerAdapter;
+	private ScreenSlidePagerAdapter mPagerAdapter;
 	private List<FlashCardFragment> fragments;
 
 	private boolean showingFront = true;
@@ -118,12 +118,10 @@ public class FlashCardActivity extends FragmentActivity {
 
 	private List<FlashCardFragment> getFragments(){
 		List<FlashCardFragment> fList = new ArrayList<FlashCardFragment>();
-		Log.d("size",""+cardList.size());
+	
 		for(int i = 0; i < cardList.size(); i++) {
-			Log.d("question",""+cardList.get(i).getQuestion());
 			fList.add(FlashCardFragment.newInstance(cardList.get(i).getQuestion()));
 		}
-		
 		return fList;
 	}
 
@@ -160,9 +158,12 @@ public class FlashCardActivity extends FragmentActivity {
 					long id = data.getLongExtra("valueName", -99); 
 					if (id != -99) {
 						// Need to add new Card to fragmentManager
-						Log.d("Success","great success");
+						Card card = db.getCard(id, deckName);
+						cardList.add(card);
+						mPagerAdapter.addFragment(FlashCardFragment.newInstance(card.getQuestion()));
+						mPagerAdapter.notifyDataSetChanged();
 					}
-				} catch (Exception e) {Log.d("Failure","great failure");}
+				} catch (Exception e) {}
 			}
 		}
 	}
@@ -224,7 +225,7 @@ public class FlashCardActivity extends FragmentActivity {
 	 */
 	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
-		private List<FlashCardFragment> fragments;
+		private List<FlashCardFragment> fragments = new ArrayList<FlashCardFragment>();
 
 		public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fragmentManager,
 				List<FlashCardFragment> fragments) {
@@ -234,12 +235,16 @@ public class FlashCardActivity extends FragmentActivity {
 
 		@Override
 		public FlashCardFragment getItem(int position) {
-			return this.fragments.get(position);
+			return fragments.get(position);
 		}
 
 		@Override
 		public int getCount() {
-			return this.fragments.size();
+			return fragments.size();
+		}
+		
+		public void addFragment(FlashCardFragment fragment) {
+			fragments.add(fragment);
 		}
 	}
 }
