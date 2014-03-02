@@ -110,8 +110,7 @@ public class FlashCardActivity extends FragmentActivity {
 	}
 
 	@Override
-	public void onBackPressed() 
-	{
+	public void onBackPressed() {
 		this.finish();
 		overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
 		return;
@@ -124,7 +123,7 @@ public class FlashCardActivity extends FragmentActivity {
 			Log.d("question",""+cardList.get(i).getQuestion());
 			fList.add(FlashCardFragment.newInstance(cardList.get(i).getQuestion()));
 		}
-
+		
 		return fList;
 	}
 
@@ -153,10 +152,26 @@ public class FlashCardActivity extends FragmentActivity {
 		}
 	}
 
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				try {
+					long id = data.getLongExtra("valueName", -99); 
+					if (id != -99) {
+						// Need to add new Card to fragmentManager
+						Log.d("Success","great success");
+					}
+				} catch (Exception e) {Log.d("Failure","great failure");}
+			}
+		}
+	}
+
 	private void addCard() {
 		Intent i = new Intent(this, NewCardActivity.class);
 		i.putExtra("deck", deckName);
-		startActivity(i);
+		startActivityForResult(i,1);
+		//	startActivity(i);
 	}
 
 	/**
@@ -204,7 +219,7 @@ public class FlashCardActivity extends FragmentActivity {
 	}
 
 	/**
-	 * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+	 * A simple pager adapter that represents our ScreenSlidePageFragment objects, in
 	 * sequence.
 	 */
 	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {

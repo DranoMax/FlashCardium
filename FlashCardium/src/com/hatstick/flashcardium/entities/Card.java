@@ -2,7 +2,7 @@ package com.hatstick.flashcardium.entities;
 
 public class Card {
 	
-	private int id;
+	private long id;
 	private String deck;
 	private String subject;
 	private String question;
@@ -32,11 +32,11 @@ public class Card {
 		this.setAnswer(answer);
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

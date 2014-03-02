@@ -102,7 +102,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	
 	
-	public void addCard(Card card) {
+	public long addCard(Card card) {
 		Log.d("here","add");
 		SQLiteDatabase db = this.getWritableDatabase();
 		
@@ -112,16 +112,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_QUESTION, card.getQuestion());
 		values.put(KEY_ANSWER, card.getAnswer());
 		
-		db.insert(TABLE_CARDS, null, values);
-		db.close();
+		return db.insert(TABLE_CARDS, null, values);
 	}
 	
-	public Card getCard(int id) {
+	public Card getCard(long id, String deck) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Cursor cursor = db.query(TABLE_CARDS, new String[] { KEY_ID,
-				KEY_SUBJECT, KEY_QUESTION, KEY_ANSWER }, KEY_ID + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
+				KEY_SUBJECT, KEY_QUESTION, KEY_ANSWER }, KEY_DECK + "=? AND "+ KEY_ID + "=?",
+				new String[] {deck,String.valueOf(id)}, null, null, null, null);
 		if(cursor != null) cursor.moveToFirst();
 		
 		Card card = new Card(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
@@ -185,9 +184,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_SUBJECT, card.getSubject());
 		values.put(KEY_QUESTION, card.getQuestion());
 		values.put(KEY_ANSWER, card.getAnswer());
-		
-		return db.update(TABLE_CARDS, values, KEY_ID + " = ?",
-				new String[] { String.valueOf(card.getId()) });
+		return db.update(TABLE_CARDS, values, KEY_DECK + "=? AND "+ KEY_ID + "=?",
+				new String[] { card.getDeck(), String.valueOf(card.getId()) });
 	}
 	
 	public void deleteCard(Card card) {

@@ -1,5 +1,6 @@
 package com.hatstick.flashcardium;
 
+import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.tools.CardArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
 import com.larphoid.overscrolllistview.OverscrollListview;
@@ -24,6 +25,8 @@ public class EditDeckActivity extends Activity {
 	private CardArrayAdapter adapter;
 
 	private String deck;
+	
+	private Card editedCard = new Card();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +48,28 @@ public class EditDeckActivity extends Activity {
 		listView.setElasticity(.15f);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+			/** 
+			 * Edit an individual card
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, final View view,
 					int position, long id) {
+				
+				// Create an object out of edited card (so we can remove it from our adapter
+				// later if the editing completes successfully)
+				editedCard = adapter.getItem(position-1);
+				
 				Intent i = new Intent(EditDeckActivity.this, NewCardActivity.class);
 				i.putExtra("deck", deck);
-				startActivity(i);
+				i.putExtra("card", editedCard.getId());
+				startActivityForResult(i,1);
 			}
 
 		});
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
-				final int index = position;
+				final int index = position-1;
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
 				// set title
@@ -91,8 +103,29 @@ public class EditDeckActivity extends Activity {
 			}
 		});
 	}
+	
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				try {
+					int id = data.getIntExtra("valueName", -99); 
+					if (id != -99) {
+						// Remove old (edited) card
+						adapter.remove(editedCard);
+						// And add the new version
+						adapter.add(db.getCard(id, deck));
+					}
+				} catch (Exception e) {}
+			}
+		}
+	}
 
-
+	@Override
+	public void onResume() {
+		super.onResume();
+		onContentChanged();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

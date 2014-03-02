@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="5dp" 
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:descendantFocusability="blocksDescendants">
 
     <!-- List of cards -->
 

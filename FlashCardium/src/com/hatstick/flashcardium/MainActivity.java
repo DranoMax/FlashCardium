@@ -58,9 +58,7 @@ public class MainActivity extends Activity {
 					int position, long id) {
 				Deck deck = (Deck) listView.getAdapter().getItem(position);
 				startFlashCards(deck.getName());
-
 			}
-
 		});
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -86,7 +84,6 @@ public class MainActivity extends Activity {
 							overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
 							return;
 						case 1: // Delete
-							Log.d("delete",adapter.getItem(index).getName());
 							db.deleteDeck(adapter.getItem(index).getName());
 							adapter.remove(adapter.getItem(index));
 							return;
@@ -110,7 +107,7 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		onContentChanged();
+		adapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -172,6 +169,15 @@ public class MainActivity extends Activity {
 			Log.d("Name: ", log);
 		}
 
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode,
+	          Intent data) {
+	      if (requestCode == 1) {
+	          if (resultCode == RESULT_OK) {
+	            Log.d("FUCK","YOU");
+	          }
+	      }
 	}
 
 	private void createDeck() {
