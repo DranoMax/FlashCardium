@@ -115,6 +115,7 @@ public class FlashCardActivity extends FragmentActivity {
 			@Override
 			public void onPageSelected(int position) {
 				showingFront = true;
+				duration = MIN_WAIT;
 				setTitle(getResources().getString(R.string.text_question));
 			}
 		});
@@ -207,7 +208,9 @@ public class FlashCardActivity extends FragmentActivity {
 	 */
 	private void screenTouched() {
 		duration+= (System.currentTimeMillis()-startTime);
+		Log.d("touch",duration+"");
 		if (duration >= MIN_WAIT) {
+			Log.d("touch","flip!");
 			duration = 0;
 			startTime = System.currentTimeMillis();
 			flipCard();
@@ -220,22 +223,22 @@ public class FlashCardActivity extends FragmentActivity {
 		FlashCardFragment frag = fragments.get(index);
 
 		if(showingFront) {
-			setTitle(this.getString(R.string.text_question));
+			setTitle(this.getString(R.string.text_answer));
 			leftOut.setTarget(frag);
 			leftIn.setTarget(frag);
 			leftOut.start();
 			// Change text
-			frag.setText(cardList.get(index).getQuestion());
+			frag.setText(cardList.get(index).getAnswer());
 			leftIn.start();
 			showingFront = false;
 		}
 		else {
-			setTitle(this.getString(R.string.text_answer));
+			setTitle(this.getString(R.string.text_question));
 			rightOut.setTarget(frag);
 			rightIn.setTarget(frag);
 			rightOut.start();
 			// Change text
-			frag.setText(cardList.get(index).getAnswer());
+			frag.setText(cardList.get(index).getQuestion());
 			rightIn.start();
 			showingFront = true;
 		}
