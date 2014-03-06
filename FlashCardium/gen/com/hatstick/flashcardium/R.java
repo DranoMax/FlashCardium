@@ -51,23 +51,26 @@ public final class R {
     
          */
         public static final int action_next=0x7f070000;
-        public static final int action_settings=0x7f070017;
+        public static final int action_settings=0x7f07001a;
         public static final int answer=0x7f070012;
         public static final int author=0x7f07000e;
         public static final int btnCreateProduct=0x7f07000b;
+        public static final int btnDelete=0x7f070017;
+        public static final int btnSave=0x7f070016;
         public static final int card_array_adapter_layout=0x7f07000c;
         public static final int decription=0x7f070015;
         public static final int delete=0x7f07000f;
         public static final int description=0x7f070011;
-        public static final int flash_card_text=0x7f070016;
+        public static final int flash_card_text=0x7f070018;
         public static final int inputDesc=0x7f07000a;
         public static final int inputName=0x7f070008;
         public static final int inputPrice=0x7f070009;
         public static final int layout_flashcard=0x7f070003;
         public static final int list=0x7f070002;
-        public static final int menu_create_object=0x7f070018;
-        public static final int menu_get_update=0x7f070019;
+        public static final int menu_create_object=0x7f07001b;
+        public static final int menu_get_update=0x7f07001c;
         public static final int name=0x7f070010;
+        public static final int pid=0x7f070019;
         public static final int question=0x7f07000d;
         public static final int save=0x7f070014;
         public static final int subject=0x7f070013;
@@ -87,7 +90,9 @@ public final class R {
         public static final int deck_array_adapter=0x7f030007;
         public static final int dialog_add_card=0x7f030008;
         public static final int dialog_create_deck=0x7f030009;
-        public static final int fragment_card_slide=0x7f03000a;
+        public static final int edit_card=0x7f03000a;
+        public static final int fragment_card_slide=0x7f03000b;
+        public static final int list_item=0x7f03000c;
     }
     public static final class menu {
         public static final int edit_deck=0x7f0b0000;

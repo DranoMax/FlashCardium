@@ -12,8 +12,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -75,6 +75,12 @@ public class FlashCardActivity extends FragmentActivity {
 
 		fragments = getFragments();
 		mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),fragments);
+		setupPageView();
+
+		loadAnimations();
+	}
+	
+	private void setupPageView() {
 		mPager.setAdapter(mPagerAdapter);
 		mPager.setOffscreenPageLimit(2);
 
@@ -102,27 +108,40 @@ public class FlashCardActivity extends FragmentActivity {
 			}
 		});
 
+		/**
+		 * We need to "reset" each fragment view when we slide to a new one.
+		 */
+		mPager.setOnPageChangeListener(new SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				showingFront = true;
+				setTitle(getResources().getString(R.string.text_question));
+			}
+		});
+	}
+
+	private void loadAnimations() {
 		leftOut = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_out);
 		leftIn = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_in);
 
 		rightOut = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_out);
 		rightIn = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_in);
 	}
+	
+	private List<FlashCardFragment> getFragments(){
+		List<FlashCardFragment> fList = new ArrayList<FlashCardFragment>();
 
+		for(int i = 0; i < cardList.size(); i++) {
+			fList.add(FlashCardFragment.newInstance(cardList.get(i).getQuestion()));
+		}
+		return fList;
+	}
+	
 	@Override
 	public void onBackPressed() {
 		this.finish();
 		overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
 		return;
-	}
-
-	private List<FlashCardFragment> getFragments(){
-		List<FlashCardFragment> fList = new ArrayList<FlashCardFragment>();
-	
-		for(int i = 0; i < cardList.size(); i++) {
-			fList.add(FlashCardFragment.newInstance(cardList.get(i).getQuestion()));
-		}
-		return fList;
 	}
 
 	@Override
@@ -150,6 +169,10 @@ public class FlashCardActivity extends FragmentActivity {
 		}
 	}
 
+	/**
+	 * OnActivityResult tells us the id of the card added during FlashCardActivity,
+	 * this allows us to inform the PagerAdapter and update its cardList accoringly.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent data) {
 		if (requestCode == 1) {
@@ -187,7 +210,6 @@ public class FlashCardActivity extends FragmentActivity {
 		if (duration >= MIN_WAIT) {
 			duration = 0;
 			startTime = System.currentTimeMillis();
-
 			flipCard();
 		}
 	}
@@ -242,7 +264,7 @@ public class FlashCardActivity extends FragmentActivity {
 		public int getCount() {
 			return fragments.size();
 		}
-		
+
 		public void addFragment(FlashCardFragment fragment) {
 			fragments.add(fragment);
 		}
