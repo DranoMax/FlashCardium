@@ -125,8 +125,8 @@ public class FlashCardActivity extends FragmentActivity {
 		leftOut = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_out);
 		leftIn = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_in);
 
-		rightOut = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_out);
-		rightIn = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_left_in);
+		rightOut = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_right_out);
+		rightIn = AnimatorInflater.loadAnimator(FlashCardActivity.this, R.animator.card_flip_right_in);
 	}
 	
 	private List<FlashCardFragment> getFragments(){
@@ -208,9 +208,8 @@ public class FlashCardActivity extends FragmentActivity {
 	 */
 	private void screenTouched() {
 		duration+= (System.currentTimeMillis()-startTime);
-		Log.d("touch",duration+"");
+
 		if (duration >= MIN_WAIT) {
-			Log.d("touch","flip!");
 			duration = 0;
 			startTime = System.currentTimeMillis();
 			flipCard();
@@ -221,25 +220,27 @@ public class FlashCardActivity extends FragmentActivity {
 
 		int index = mPager.getCurrentItem();
 		FlashCardFragment frag = fragments.get(index);
-
+		
 		if(showingFront) {
 			setTitle(this.getString(R.string.text_answer));
-			leftOut.setTarget(frag);
-			leftIn.setTarget(frag);
+			leftOut.setTarget(frag.getView());
+			leftIn.setTarget(frag.getView());
 			leftOut.start();
 			// Change text
 			frag.setText(cardList.get(index).getAnswer());
 			leftIn.start();
+			frag.getView().findViewById(R.id.flash_card_background).setBackgroundResource(R.drawable.flashcard_portrait_back);
 			showingFront = false;
 		}
 		else {
 			setTitle(this.getString(R.string.text_question));
-			rightOut.setTarget(frag);
-			rightIn.setTarget(frag);
+			rightOut.setTarget(frag.getView());
+			rightIn.setTarget(frag.getView());
 			rightOut.start();
 			// Change text
 			frag.setText(cardList.get(index).getQuestion());
 			rightIn.start();
+			frag.getView().findViewById(R.id.flash_card_background).setBackgroundResource(R.drawable.flashcard_portrait);
 			showingFront = true;
 		}
 	}

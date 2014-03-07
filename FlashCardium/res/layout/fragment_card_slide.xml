@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flash_card_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/flashcard_portrait"
@@ -11,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:textSize="48sp" 
-        android:textStyle="bold"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginRight="20dp"
+        android:textSize="48sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
