@@ -42,12 +42,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Log.d("Db","Creating");
 		
 		String CREATE_DECKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_DECKS + "(" +
-				KEY_DECK + " TEXT PRIMARY KEY," +
+				KEY_DECK + " VARCHAR(32) PRIMARY KEY," +
 				KEY_DESCRIPTION + " TEXT," + KEY_AUTHOR + " TEXT" + ")";
 		db.execSQL(CREATE_DECKS_TABLE);	
 		
 		String CREATE_CARDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CARDS + "(" +
-				KEY_ID + " INTEGER PRIMARY KEY," + KEY_DECK + " Text," + 
+				KEY_ID + " INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," + KEY_DECK + " VARCHAR(32)," + 
 				KEY_SUBJECT + " TEXT," + KEY_QUESTION + " TEXT," +
 				KEY_ANSWER + " TEXT, " + 
 				" FOREIGN KEY "+"("+KEY_DECK+")"+
