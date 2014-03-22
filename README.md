@@ -12,3 +12,8 @@ Features
     
 ## Great for the whole family! ##
 Download today! 
+
+Todo
+----
+* Add ability to connect and upload/download files from a server.
+* Ability to change default card background(?)
