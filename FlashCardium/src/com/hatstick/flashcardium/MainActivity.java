@@ -145,27 +145,27 @@ public class MainActivity extends Activity {
 		/**
 		 * CRUD operations
 		 */
-		/*
-		db.createDeck(new Deck("Math 101", "I hate this class", "MccLovin"));
+		
+		db.createDeck(new Deck("Math 101", "I love this class", "MccLovin"));
 		db.createDeck(new Deck("Science 1030", "Biolab", "XxHeroxX"));
 		db.createDeck(new Deck("English 2010", "Love me some English!", "MccLovin"));
 		db.createDeck(new Deck("Computer Class", "", "Stan"));
-		 */
+		 
 
-		/*
+	/*	
 		Log.d("Reading: ", "Reading all decks..");
 		for (Deck deck : deckList) {
 			String log = "name " + deck.getName();
 			Log.d("Name: ", log);
 		}
 		 */
-		/*
+		
 		 Log.d("Insert: ", "Inserting..");
 		 db.addCard(new Card("Math 101","Math","1+1","2"));
 		 db.addCard(new Card("Math 101","Math","1+2","3"));
 		 db.addCard(new Card("Math 101","Math","2+2","4"));
 		 db.addCard(new Card("Math 101","Math","2+3","5"));
-		 */
+		 
 		Log.d("Reading: ", "Reading all cards..");
 		cardsList = db.getAllCards();
 		for (Card card : cardsList) {
