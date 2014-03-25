@@ -145,13 +145,13 @@ public class MainActivity extends Activity {
 		/**
 		 * CRUD operations
 		 */
-		
+		/*
 		db.createDeck(new Deck("Math 101", "I love this class", "MccLovin"));
 		db.createDeck(new Deck("Science 1030", "Biolab", "XxHeroxX"));
 		db.createDeck(new Deck("English 2010", "Love me some English!", "MccLovin"));
 		db.createDeck(new Deck("Computer Class", "", "Stan"));
 		 
-
+*/
 	/*	
 		Log.d("Reading: ", "Reading all decks..");
 		for (Deck deck : deckList) {
@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
 			Log.d("Name: ", log);
 		}
 		 */
-		
+		/*
 		 Log.d("Insert: ", "Inserting..");
 		 db.addCard(new Card("Math 101","Math","1+1","2"));
 		 db.addCard(new Card("Math 101","Math","1+2","3"));
@@ -173,7 +173,7 @@ public class MainActivity extends Activity {
 					", Question: "+card.getQuestion();
 			Log.d("Name: ", log);
 		}
-
+*/
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode,
