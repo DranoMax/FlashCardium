@@ -38,7 +38,7 @@
         </activity>
         <!-- All Database Activity -->
         <activity
-            android:name="com.hatstick.flashcardium.AllCardsActivity"
+            android:name="com.hatstick.webtools.AllCardsActivity"
             android:label="All Cards" >
         </activity>
         <activity

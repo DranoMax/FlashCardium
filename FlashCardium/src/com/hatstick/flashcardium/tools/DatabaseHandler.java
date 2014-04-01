@@ -15,13 +15,13 @@ import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	private static final String DATABASE_NAME = "cardDatabase";
 	private static final String TABLE_DECKS = "decks";
 	private static final String TABLE_CARDS = "cards";
 	
 	// TABLE decks Column names
-	private static final String KEY_DECK = "name";
+	private static final String KEY_DECK = "deck";
 	private static final String KEY_DESCRIPTION = "description";
 	private static final String KEY_AUTHOR = "author";
 	
@@ -42,17 +42,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Log.d("Db","Creating");
 		
 		String CREATE_DECKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_DECKS + "(" +
-				KEY_DECK + " VARCHAR(32) PRIMARY KEY," +
+				KEY_DECK + " VARCHAR(32) NOT NULL PRIMARY KEY," +
 				KEY_DESCRIPTION + " VARCHAR(32)," + KEY_AUTHOR + " VARCHAR(16)" + ")";
 		db.execSQL(CREATE_DECKS_TABLE);	
 		
 		String CREATE_CARDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CARDS + "(" +
-				KEY_ID + " INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY," + KEY_DECK + " VARCHAR(32)," + 
+				KEY_ID + " INTEGER NOT NULL AUTO_INCREMENT," + KEY_DECK + " VARCHAR(32) NOT NULL," + 
 				KEY_SUBJECT + " VARCHAR(32)," + KEY_QUESTION + " VARCHAR(160)," +
 				KEY_ANSWER + " VARCHAR(160), " + 
+				" PRIMARY KEY (" + KEY_ID + ")," +
 				" FOREIGN KEY "+"("+KEY_DECK+")"+
 				" REFERENCES " + TABLE_DECKS +"("+KEY_DECK+")"+
-				" ON DELETE CASCADE" + ")";
+				" ON DELETE CASCADE)";
 		db.execSQL(CREATE_CARDS_TABLE);
 	}
 
