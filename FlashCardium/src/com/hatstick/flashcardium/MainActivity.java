@@ -1,8 +1,5 @@
 package com.hatstick.flashcardium;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.DeckArrayAdapter;
@@ -12,7 +9,6 @@ import com.larphoid.overscrolllistview.OverscrollListview;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,15 +18,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ListView;
 
 public class MainActivity extends Activity {
-
-	private List<Card> cardsList = new ArrayList<Card>();
-
+	
 	private Context context = this;
 
 	private DatabaseHandler db;
@@ -42,7 +34,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		db = new DatabaseHandler(this);
-		createDatabase(db);
 
 		adapter = new DeckArrayAdapter(this,db.getAllDecks());
 		adapter.sortDecks();
@@ -98,7 +89,6 @@ public class MainActivity extends Activity {
 							return;
 						}
 					}
-
 				});		// create alert dialog
 				AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -141,54 +131,28 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private void createDatabase(DatabaseHandler db) {
-
-		/**
-		 * CRUD operations
-		 */
-		/*
-		db.createDeck(new Deck("Math 101", "I love this class", "MccLovin"));
-		db.createDeck(new Deck("Science 1030", "Biolab", "XxHeroxX"));
-		db.createDeck(new Deck("English 2010", "Love me some English!", "MccLovin"));
-		db.createDeck(new Deck("Computer Class", "", "Stan"));
-		 
-*/
-	/*	
-		Log.d("Reading: ", "Reading all decks..");
-		for (Deck deck : deckList) {
-			String log = "name " + deck.getName();
-			Log.d("Name: ", log);
-		}
-		 */
-		/*
-		 Log.d("Insert: ", "Inserting..");
-		 db.addCard(new Card("Math 101","Math","1+1","2"));
-		 db.addCard(new Card("Math 101","Math","1+2","3"));
-		 db.addCard(new Card("Math 101","Math","2+2","4"));
-		 db.addCard(new Card("Math 101","Math","2+3","5"));
-		 
-		Log.d("Reading: ", "Reading all cards..");
-		cardsList = db.getAllCards();
-		for (Card card : cardsList) {
-			String log = "Id: " +card.getId()+ " Deck: " + card.getDeck() + ", Subject: "+card.getSubject()+
-					", Question: "+card.getQuestion();
-			Log.d("Name: ", log);
-		}
-*/
-	}
-
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent data) {
 		if (requestCode == 1) {
 			if (resultCode == RESULT_OK) {
-				Log.d("FUCK","YOU");
+				Log.d("here","making deck");
+				try {
+					String deckName = data.getStringExtra("deck"); 
+					if (deckName != null) {
+						// Need to add new Card to fragmentManager
+						Deck deck = db.getDeck(deckName);
+						adapter.add(deck);
+						adapter.sortDecks();
+						adapter.notifyDataSetChanged();
+					}
+				} catch (Exception e) {}
 			}
 		}
 	}
 
 	private void createDeck() {
 		Intent i = new Intent(MainActivity.this, CreateDeckActivity.class);
-		startActivity(i);
+		startActivityForResult(i,1);
 		overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
 	}
 

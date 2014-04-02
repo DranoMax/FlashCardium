@@ -82,7 +82,7 @@ public class FlashCardActivity extends FragmentActivity {
 	
 	private void setupPageView() {
 		mPager.setAdapter(mPagerAdapter);
-		mPager.setOffscreenPageLimit(2);
+		mPager.setOffscreenPageLimit(0);
 
 		mPager.setOnTouchListener(new OnTouchListener() {
 			private float pointX;
@@ -172,7 +172,7 @@ public class FlashCardActivity extends FragmentActivity {
 
 	/**
 	 * OnActivityResult tells us the id of the card added during FlashCardActivity,
-	 * this allows us to inform the PagerAdapter and update its cardList accoringly.
+	 * this allows us to inform the PagerAdapter and update its cardList accordingly.
 	 */
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent data) {

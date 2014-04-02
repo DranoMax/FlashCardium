@@ -34,6 +34,9 @@ public class CreateDeckActivity extends Activity {
 			deck.setName(name.getText().toString());
 			deck.setDescription(desc.getText().toString());
 			db.createDeck(deck);
+			Intent resultData = new Intent();
+			resultData.putExtra("deck", deck.getName());
+			setResult(Activity.RESULT_OK, resultData);
 			finish();
 		}
 	};
