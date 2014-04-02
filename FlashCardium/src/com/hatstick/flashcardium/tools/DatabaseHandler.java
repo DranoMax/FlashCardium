@@ -5,18 +5,25 @@ import java.util.List;
 
 import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.entities.Deck;
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DatabaseHandler extends SQLiteOpenHelper {
+/**
+ * This class makes use of the SQLiteAssetHelper available via github: https://github.com/jgilfelt/android-sqlite-asset-helper.
+ * I owe a great debt of thanks to them for their awesome library!
+ * 
+ * @author dragon_slayer2000
+ */
 
-	private static final int DATABASE_VERSION = 2;
-	private static final String DATABASE_NAME = "cardDatabase";
+public class DatabaseHandler extends SQLiteAssetHelper {
+
+	private static final int DATABASE_VERSION = 1;
+	private static final String DATABASE_NAME = "flashcardium.db";
 	private static final String TABLE_DECKS = "decks";
 	private static final String TABLE_CARDS = "cards";
 	
@@ -33,37 +40,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-	}
-	
-	// Create Tables
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		
-		Log.d("Db","Creating");
-		
-		String CREATE_DECKS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_DECKS + "(" +
-				KEY_DECK + " VARCHAR(32) NOT NULL PRIMARY KEY," +
-				KEY_DESCRIPTION + " VARCHAR(32)," + KEY_AUTHOR + " VARCHAR(16)" + ")";
-		db.execSQL(CREATE_DECKS_TABLE);	
-		
-		String CREATE_CARDS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CARDS + "(" +
-				KEY_ID + " INTEGER NOT NULL AUTO_INCREMENT," + KEY_DECK + " VARCHAR(32) NOT NULL," + 
-				KEY_SUBJECT + " VARCHAR(32)," + KEY_QUESTION + " VARCHAR(160)," +
-				KEY_ANSWER + " VARCHAR(160), " + 
-				" PRIMARY KEY (" + KEY_ID + ")," +
-				" FOREIGN KEY "+"("+KEY_DECK+")"+
-				" REFERENCES " + TABLE_DECKS +"("+KEY_DECK+")"+
-				" ON DELETE CASCADE)";
-		db.execSQL(CREATE_CARDS_TABLE);
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-		// Drop older table if it exists
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARDS);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_DECKS);
-		// Create table again
-		onCreate(db);
 	}
 	
 	public void createDeck(Deck deck) {
@@ -85,7 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		String selectQuery = "SELECT * FROM " + TABLE_DECKS;
 		
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		
 		if(cursor.moveToFirst()) {
@@ -100,7 +76,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 		return deckList;
 	}
-	
 	
 	
 	public long addCard(Card card) {
@@ -137,7 +112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		Log.d("Query: ",selectQuery+"");
 		
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		
 		if(cursor.moveToFirst()) {
@@ -160,7 +135,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		String selectQuery = "SELECT * FROM " + TABLE_CARDS;
 		
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		
 		if(cursor.moveToFirst()) {
