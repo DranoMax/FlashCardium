@@ -1,6 +1,5 @@
 package com.hatstick.flashcardium;
 
-import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.DeckArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
@@ -13,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +26,14 @@ public class MainActivity extends Activity {
 	private Context context = this;
 
 	private DatabaseHandler db;
+	private OverscrollListview listView;
 	private DeckArrayAdapter adapter;
+	
+	private Handler handler;
+	
+	// Request codes
+	private static final int CREATE_DECK = 1;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,14 +45,18 @@ public class MainActivity extends Activity {
 		adapter = new DeckArrayAdapter(this,db.getAllDecks());
 		adapter.sortDecks();
 
-		final OverscrollListview listView = (OverscrollListview)findViewById(R.id.list);
+		createDeckListView();
+	}
+	
+	private void createDeckListView() {
+		listView = (OverscrollListview)findViewById(R.id.list);
 		listView.setAdapter(adapter);
 		listView.setTextFilterEnabled(true);
 		listView.setLongClickable(true);
 		listView.setElasticity(.15f);
 		
 		// Half-hack to stop OverScroll form sticking up above the list
-		listView.smoothScrollToPosition(20);
+		listView.smoothScrollToPosition(adapter.size());
 		adapter.notifyDataSetChanged();
 		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -133,7 +144,7 @@ public class MainActivity extends Activity {
 
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent data) {
-		if (requestCode == 1) {
+		if (requestCode == CREATE_DECK) { // Create Deck request
 			if (resultCode == RESULT_OK) {
 				Log.d("here","making deck");
 				try {
@@ -152,7 +163,7 @@ public class MainActivity extends Activity {
 
 	private void createDeck() {
 		Intent i = new Intent(MainActivity.this, CreateDeckActivity.class);
-		startActivityForResult(i,1);
+		startActivityForResult(i,CREATE_DECK);
 		overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
 	}
 

@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="13"
+        android:minSdkVersion="10"
         android:targetSdkVersion="18" />
 
     <application
@@ -29,12 +29,12 @@
         <activity
             android:name="com.hatstick.flashcardium.NewCardActivity"
             android:label="@string/title_new_card"
-            android:theme="@android:style/Theme.Holo.Dialog" >
+            android:theme="@style/default_dialog" >
         </activity>
         <activity
             android:name="com.hatstick.flashcardium.CreateDeckActivity"
             android:label="@string/title_new_deck"
-            android:theme="@android:style/Theme.Holo.Dialog" >
+            android:theme="@style/default_dialog" >
         </activity>
         <!-- All Database Activity -->
         <activity

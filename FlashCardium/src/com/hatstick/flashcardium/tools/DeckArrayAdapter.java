@@ -47,5 +47,9 @@ public class DeckArrayAdapter extends ArrayAdapter<Deck>{
 			}
 		});
 	}
+	
+	public int size() {
+		return deckList.size();
+	}
 
 }
