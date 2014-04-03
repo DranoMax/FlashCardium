@@ -20,7 +20,7 @@ public class NewCardActivity extends Activity {
 	private Card card;
 	private DatabaseHandler db;
 	private String deckName;
-	private int editCard = -99;
+	private long editCard = -99;
 
 	private EditText question;
 	private EditText answer;
@@ -42,7 +42,7 @@ public class NewCardActivity extends Activity {
 
 		// Check to see if editing a card
 		if (intent.getExtras().containsKey("card")) {
-			editCard(intent.getExtras().getInt("card"));
+			editCard(intent.getExtras().getLong("card"));
 		}
 
 		Button save = (Button)findViewById(R.id.save);
@@ -56,21 +56,22 @@ public class NewCardActivity extends Activity {
 				card = new Card();
 				setCard();
 				card.setId(db.addCard(card));
+				Toast.makeText(NewCardActivity.this, "Card Created", Toast.LENGTH_SHORT).show();
 			}
 			// Else edit existing
 			else {
 				setCard();
 				db.updateCard(card);
+				Toast.makeText(NewCardActivity.this, "Card Edited", Toast.LENGTH_SHORT).show();
 			}
 			Intent resultData = new Intent();
-			resultData.putExtra("valueName", card.getId());
+			resultData.putExtra("cardId", card.getId());
 			setResult(Activity.RESULT_OK, resultData);
-			Toast.makeText(NewCardActivity.this, "Card Created", Toast.LENGTH_SHORT).show();
 			finish();
 		}
 	};
 
-	private void editCard(int id) {
+	private void editCard(long id) {
 		editCard = id;
 		card = db.getCard(editCard,deckName);
 

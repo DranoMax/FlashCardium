@@ -1,6 +1,7 @@
 package com.hatstick.flashcardium;
 
 import com.hatstick.flashcardium.dialogs.CreateDeckActivity;
+import com.hatstick.flashcardium.dialogs.NewCardActivity;
 import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.DeckArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
@@ -21,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 public class MainActivity extends Activity {
@@ -110,8 +112,8 @@ public class MainActivity extends Activity {
 						case 1: // Delete
 							db.deleteDeck(adapter.getItem(index).getName());
 							adapter.remove(adapter.getItem(index));
+							Toast.makeText(MainActivity.this, "Deleted " + adapter.getItem(index).getName(), Toast.LENGTH_SHORT).show();
 							return;
-
 						default: // Cancel
 							return;
 						}

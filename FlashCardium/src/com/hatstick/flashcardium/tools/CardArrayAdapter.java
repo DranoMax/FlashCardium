@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.hatstick.flashcardium.R;
 import com.hatstick.flashcardium.entities.Card;
+import com.hatstick.flashcardium.entities.Deck;
 
 import android.content.Context;
 import android.util.Log;
@@ -41,5 +42,15 @@ public class CardArrayAdapter extends ArrayAdapter<Card>{
 		((TextView)rowView.findViewById(R.id.author)).setText(cardList.get(position).getAnswer());
 		
 		return rowView;
+	}
+	
+	public void sortCards() {
+		Collections.sort(cardList, new Comparator<Card>(){
+			@Override
+			public int compare(Card card1, Card card2) {
+				// TODO Auto-generated method stub
+				return (int)(card1.getId()-card2.getId());
+			}
+		});
 	}
 }

@@ -2,6 +2,7 @@ package com.hatstick.flashcardium;
 
 import com.hatstick.flashcardium.dialogs.NewCardActivity;
 import com.hatstick.flashcardium.entities.Card;
+import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.CardArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
 import com.larphoid.overscrolllistview.OverscrollListview;
@@ -28,6 +29,9 @@ public class EditDeckActivity extends Activity {
 	private String deck;
 
 	private Card editedCard = new Card();
+
+	// Request codes
+	private static final int EDIT_CARD = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +67,12 @@ public class EditDeckActivity extends Activity {
 
 				// Create an object out of edited card (so we can remove it from our adapter
 				// later if the editing completes successfully)
-				editedCard = adapter.getItem(position-1);
-
+				editedCard = (Card)listView.getAdapter().getItem(position);
 				Intent i = new Intent(EditDeckActivity.this, NewCardActivity.class);
 				i.putExtra("deck", deck);
 				i.putExtra("card", editedCard.getId());
-				startActivityForResult(i,1);
+				startActivityForResult(i,EDIT_CARD);
 			}
-
 		});
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -112,16 +114,18 @@ public class EditDeckActivity extends Activity {
 
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent data) {
-		if (requestCode == 1) {
-			if (resultCode == RESULT_OK) {
+		if (resultCode == RESULT_OK) {
+			if (requestCode == EDIT_CARD) {
 				try {
-					int id = data.getIntExtra("valueName", -99); 
+					long id = data.getLongExtra("cardId", -99); 
 					if (id != -99) {
 						// Remove old (edited) card
 						adapter.remove(editedCard);
 						// And add the new version
 						adapter.add(db.getCard(id, deck));
-					}
+						adapter.sortCards();
+						adapter.notifyDataSetChanged();
+					}	
 				} catch (Exception e) {}
 			}
 		}
