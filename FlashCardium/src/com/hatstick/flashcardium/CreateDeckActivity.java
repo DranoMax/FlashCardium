@@ -2,13 +2,13 @@ package com.hatstick.flashcardium;
 
 import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CreateDeckActivity extends Activity {
 
@@ -37,6 +37,7 @@ public class CreateDeckActivity extends Activity {
 			Intent resultData = new Intent();
 			resultData.putExtra("deck", deck.getName());
 			setResult(Activity.RESULT_OK, resultData);
+			Toast.makeText(CreateDeckActivity.this, "Created deck "+ deck.getName(), Toast.LENGTH_SHORT).show();
 			finish();
 		}
 	};

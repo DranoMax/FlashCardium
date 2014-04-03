@@ -7,6 +7,7 @@ import java.util.List;
 
 
 
+
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +16,7 @@ import org.json.JSONObject;
 
 
 
-import com.hatstick.flashcardium.EditCardActivity;
+
 import com.hatstick.flashcardium.R;
 import com.hatstick.flashcardium.R.layout;
 import com.hatstick.flashcardium.tools.JSONParser;

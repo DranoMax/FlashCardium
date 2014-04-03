@@ -35,8 +35,7 @@ public class MainActivity extends Activity {
 
 	// Request codes
 	private static final int CREATE_DECK = 1;
-
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewCardActivity extends Activity {
 
@@ -61,6 +62,7 @@ public class NewCardActivity extends Activity {
 			Intent resultData = new Intent();
 			resultData.putExtra("valueName", card.getId());
 			setResult(Activity.RESULT_OK, resultData);
+			Toast.makeText(NewCardActivity.this, "Card Created", Toast.LENGTH_SHORT).show();
 			finish();
 		}
 	};

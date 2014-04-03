@@ -2,19 +2,16 @@ package com.hatstick.flashcardium;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
-
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorInflater;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -141,7 +138,7 @@ public class FlashCardActivity extends FragmentActivity {
 	@Override
 	public void onBackPressed() {
 		this.finish();
-		overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
+		overridePendingTransition(R.animator.slide_in, R.animator.slide_out);
 		return;
 	}
 
@@ -196,7 +193,6 @@ public class FlashCardActivity extends FragmentActivity {
 		Intent i = new Intent(this, NewCardActivity.class);
 		i.putExtra("deck", deckName);
 		startActivityForResult(i,1);
-		//	startActivity(i);
 	}
 
 	/**

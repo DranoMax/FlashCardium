@@ -1,8 +1,9 @@
-package com.hatstick.flashcardium;
+package com.hatstick.webtools;
 
 import java.util.ArrayList;
 import java.util.List;
  
+
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -11,6 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
  
 
+
+import com.hatstick.flashcardium.R;
+import com.hatstick.flashcardium.R.id;
 import com.hatstick.flashcardium.tools.JSONParser;
 
 import android.app.Activity;
