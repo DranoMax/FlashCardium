@@ -8,6 +8,7 @@ import com.larphoid.overscrolllistview.OverscrollListview;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,15 +23,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 public class MainActivity extends Activity {
-	
+
 	private Context context = this;
 
 	private DatabaseHandler db;
 	private OverscrollListview listView;
 	private DeckArrayAdapter adapter;
-	
+
+	private ProgressDialog dialog;
 	private Handler handler;
-	
+
 	// Request codes
 	private static final int CREATE_DECK = 1;
 
@@ -39,26 +41,40 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		handler = new Handler();
 
-		db = new DatabaseHandler(this);
-
-		adapter = new DeckArrayAdapter(this,db.getAllDecks());
-		adapter.sortDecks();
-
-		createDeckListView();
+		dialog = ProgressDialog.show(this, "Loading", "Loading flashcard decks!");
+		Thread th = new Thread() {
+			public void run() {
+				try {
+					db = new DatabaseHandler(MainActivity.this);
+					handler.post(new Runnable() {
+						public void run() {
+							adapter = new DeckArrayAdapter(MainActivity.this,db.getAllDecks());
+							adapter.sortDecks();
+							createDeckListView();
+							dialog.dismiss();
+						}
+					});
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}; th.start();
 	}
-	
+
 	private void createDeckListView() {
 		listView = (OverscrollListview)findViewById(R.id.list);
 		listView.setAdapter(adapter);
 		listView.setTextFilterEnabled(true);
 		listView.setLongClickable(true);
 		listView.setElasticity(.15f);
-		
+
 		// Half-hack to stop OverScroll form sticking up above the list
 		listView.smoothScrollToPosition(adapter.size());
 		adapter.notifyDataSetChanged();
-		
+
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -114,7 +130,6 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		adapter.notifyDataSetChanged();
 	}
 
 	@Override
