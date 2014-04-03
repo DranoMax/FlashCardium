@@ -1,5 +1,6 @@
 package com.hatstick.flashcardium;
 
+import com.hatstick.flashcardium.dialogs.NewCardActivity;
 import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.tools.CardArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;

@@ -27,18 +27,18 @@
             android:label="@string/title_empty_deck" >
         </activity>
         <activity
-            android:name="com.hatstick.flashcardium.NewCardActivity"
+            android:name="com.hatstick.flashcardium.dialogs.NewCardActivity"
             android:label="@string/title_new_card"
             android:theme="@style/default_dialog" >
         </activity>
         <activity
-            android:name="com.hatstick.flashcardium.CreateDeckActivity"
+            android:name="com.hatstick.flashcardium.dialogs.CreateDeckActivity"
             android:label="@string/title_new_deck"
             android:theme="@style/default_dialog" >
         </activity>
         <!-- All Database Activity -->
         <activity
-            android:name="com.hatstick.webtools.AllCardsActivity"
+            android:name="com.hatstick.flashcardium.webtools.AllCardsActivity"
             android:label="All Cards" >
         </activity>
         <activity

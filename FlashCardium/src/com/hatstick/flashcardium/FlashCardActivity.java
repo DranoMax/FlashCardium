@@ -2,10 +2,13 @@ package com.hatstick.flashcardium;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.hatstick.flashcardium.dialogs.NewCardActivity;
 import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorInflater;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

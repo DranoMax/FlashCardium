@@ -1,4 +1,4 @@
-package com.hatstick.webtools;
+package com.hatstick.flashcardium.webtools;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,11 @@
-package com.hatstick.flashcardium;
+package com.hatstick.flashcardium.dialogs;
 
+import com.hatstick.flashcardium.R;
+import com.hatstick.flashcardium.R.id;
+import com.hatstick.flashcardium.R.layout;
 import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
