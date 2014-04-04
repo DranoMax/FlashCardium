@@ -2,21 +2,20 @@ package com.hatstick.flashcardium;
 
 import com.hatstick.flashcardium.dialogs.NewCardActivity;
 import com.hatstick.flashcardium.entities.Card;
-import com.hatstick.flashcardium.entities.Deck;
 import com.hatstick.flashcardium.tools.CardArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
 import com.larphoid.overscrolllistview.OverscrollListview;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 public class EditDeckActivity extends Activity {
@@ -32,6 +31,7 @@ public class EditDeckActivity extends Activity {
 
 	// Request codes
 	private static final int EDIT_CARD = 1;
+	private static final int ADD_CARD = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +68,14 @@ public class EditDeckActivity extends Activity {
 				// Create an object out of edited card (so we can remove it from our adapter
 				// later if the editing completes successfully)
 				editedCard = (Card)listView.getAdapter().getItem(position);
-				Intent i = new Intent(EditDeckActivity.this, NewCardActivity.class);
-				i.putExtra("deck", deck);
-				i.putExtra("card", editedCard.getId());
-				startActivityForResult(i,EDIT_CARD);
+				editCard();
 			}
 		});
 
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+				// Note that we use position-1 because we are calling the adapter's item not the listView's
+				// I do this so I can access the items outside of this method such as in deleteCard(int index);
 				final int index = position-1;
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -90,10 +89,11 @@ public class EditDeckActivity extends Activity {
 						switch (which) {
 
 						case 0: // Edit
-
+							editedCard = adapter.getItem(index);
+							editCard();
 							return;
 						case 1: // Delete
-
+							deleteCard(index);
 							return;
 
 						default: // Cancel
@@ -103,7 +103,6 @@ public class EditDeckActivity extends Activity {
 
 				});		// create alert dialog
 				AlertDialog alertDialog = alertDialogBuilder.create();
-
 				// show it
 				alertDialog.show();
 
@@ -123,11 +122,20 @@ public class EditDeckActivity extends Activity {
 						adapter.remove(editedCard);
 						// And add the new version
 						adapter.add(db.getCard(id, deck));
-						adapter.sortCards();
-						adapter.notifyDataSetChanged();
 					}	
-				} catch (Exception e) {}
+				} catch (Exception e) { e.getStackTrace(); }
 			}
+			else if (requestCode == ADD_CARD) {
+				try {
+					long id = data.getLongExtra("cardId", -99); 
+					if (id != -99) {
+						// And add the new version
+						adapter.add(db.getCard(id, deck));
+					}	
+				} catch (Exception e) { e.getStackTrace(); }
+			}
+			adapter.sortCards();
+			adapter.notifyDataSetChanged();
 		}
 	}
 
@@ -145,8 +153,42 @@ public class EditDeckActivity extends Activity {
 	}
 
 	@Override
-	public void onBackPressed() 
-	{
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		
+		case R.id.menu_create_object:
+			createCard();
+			return true;
+			
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	private void editCard() {
+		Intent i = new Intent(EditDeckActivity.this, NewCardActivity.class);
+		i.putExtra("deck", deck);
+		i.putExtra("card", editedCard.getId());
+		startActivityForResult(i,EDIT_CARD);
+	}
+
+	private void createCard() {
+		Intent i = new Intent(this, NewCardActivity.class);
+		i.putExtra("deck", deck);
+		startActivityForResult(i,ADD_CARD);
+	}
+	
+	private void deleteCard(int index) {
+		Card card = adapter.getItem(index);
+		db.deleteCard(card);
+		Toast.makeText(EditDeckActivity.this, R.string.message_card_deleted, Toast.LENGTH_SHORT).show();
+		adapter.remove(card);
+		adapter.sortCards();
+	}
+
+	@Override
+	public void onBackPressed() {
 		this.finish();
 		overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
 		return;

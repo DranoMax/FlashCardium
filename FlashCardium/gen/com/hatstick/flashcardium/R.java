@@ -53,7 +53,7 @@ public final class R {
     
          */
         public static final int action_next=0x7f070000;
-        public static final int action_settings=0x7f07001b;
+        public static final int action_settings=0x7f07001c;
         public static final int answer=0x7f070012;
         public static final int author=0x7f07000e;
         public static final int btnCreateProduct=0x7f07000b;
@@ -70,7 +70,7 @@ public final class R {
         public static final int inputPrice=0x7f070009;
         public static final int layout_flashcard=0x7f070003;
         public static final int list=0x7f070002;
-        public static final int menu_create_object=0x7f07001c;
+        public static final int menu_create_object=0x7f07001b;
         public static final int menu_get_update=0x7f07001d;
         public static final int name=0x7f070010;
         public static final int pid=0x7f07001a;
@@ -105,28 +105,29 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f090001;
         public static final int app_name=0x7f090000;
-        public static final int button_delete=0x7f090015;
+        public static final int button_delete=0x7f090016;
         /**  Buttons 
          */
-        public static final int button_save=0x7f090014;
+        public static final int button_save=0x7f090015;
         /**  Actions 
  Messages 
          */
         public static final int message_card_created=0x7f090009;
+        public static final int message_card_deleted=0x7f09000b;
         public static final int message_card_edited=0x7f09000a;
-        public static final int message_deck_created=0x7f09000b;
-        public static final int message_deck_deleted=0x7f09000c;
-        public static final int prompt_answer=0x7f090011;
+        public static final int message_deck_created=0x7f09000c;
+        public static final int message_deck_deleted=0x7f09000d;
+        public static final int prompt_answer=0x7f090012;
         /**  Prompts 
          */
-        public static final int prompt_deck=0x7f09000d;
-        public static final int prompt_description=0x7f09000e;
-        public static final int prompt_question=0x7f090010;
-        public static final int prompt_subject=0x7f09000f;
-        public static final int text_answer=0x7f090013;
+        public static final int prompt_deck=0x7f09000e;
+        public static final int prompt_description=0x7f09000f;
+        public static final int prompt_question=0x7f090011;
+        public static final int prompt_subject=0x7f090010;
+        public static final int text_answer=0x7f090014;
         /**  Text 
          */
-        public static final int text_question=0x7f090012;
+        public static final int text_question=0x7f090013;
         public static final int title_answer=0x7f090003;
         public static final int title_edit_card=0x7f090007;
         public static final int title_edit_deck=0x7f090008;

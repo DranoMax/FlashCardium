@@ -19,6 +19,7 @@
     <!-- Messages -->
     <string name="message_card_created">Card created</string>
     <string name="message_card_edited">Card edited</string>
+    <string name="message_card_deleted">Card deleted</string>
     <string name="message_deck_created">Deck %s created</string>
     <string name="message_deck_deleted">Deleted %s</string>
 
