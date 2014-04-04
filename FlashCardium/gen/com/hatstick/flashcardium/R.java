@@ -98,9 +98,9 @@ public final class R {
         public static final int list_item=0x7f03000c;
     }
     public static final class menu {
-        public static final int edit_deck=0x7f0b0000;
-        public static final int flash_card=0x7f0b0001;
-        public static final int main_menu=0x7f0b0002;
+        public static final int menu_edit_deck=0x7f0b0000;
+        public static final int menu_flash_card_activity=0x7f0b0001;
+        public static final int menu_main=0x7f0b0002;
     }
     public static final class string {
         public static final int action_settings=0x7f090001;
