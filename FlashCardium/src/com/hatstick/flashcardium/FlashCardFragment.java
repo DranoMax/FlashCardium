@@ -13,8 +13,7 @@ public class FlashCardFragment extends Fragment {
 	public static final String Question = "Question";
 	private View v;
 
-	public static final FlashCardFragment newInstance(String message)
-	{
+	public static final FlashCardFragment newInstance(String message) {
 		FlashCardFragment f = new FlashCardFragment();
 		Bundle bdl = new Bundle(1);
 		bdl.putString(Question, message);
@@ -33,7 +32,7 @@ public class FlashCardFragment extends Fragment {
 		return v;
 	}
 
-	public void setText(String text){
+	public void setText(String text) {
 		TextView textView = (TextView)v.findViewById(R.id.flash_card_text);
 		textView.setText(text);
 	}

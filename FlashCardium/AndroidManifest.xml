@@ -43,7 +43,7 @@
         </activity>
         <activity
             android:name="com.hatstick.flashcardium.EditDeckActivity"
-            android:label="@string/title_activity_edit_deck" >
+            android:label="@string/title_edit_deck" >
         </activity>
     </application>
 

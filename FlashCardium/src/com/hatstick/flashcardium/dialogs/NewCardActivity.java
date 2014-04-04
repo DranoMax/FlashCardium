@@ -42,6 +42,7 @@ public class NewCardActivity extends Activity {
 
 		// Check to see if editing a card
 		if (intent.getExtras().containsKey("card")) {
+			setTitle(R.string.title_edit_card);
 			editCard(intent.getExtras().getLong("card"));
 		}
 
@@ -56,13 +57,13 @@ public class NewCardActivity extends Activity {
 				card = new Card();
 				setCard();
 				card.setId(db.addCard(card));
-				Toast.makeText(NewCardActivity.this, "Card Created", Toast.LENGTH_SHORT).show();
+				Toast.makeText(NewCardActivity.this, R.string.message_card_created, Toast.LENGTH_SHORT).show();
 			}
 			// Else edit existing
 			else {
 				setCard();
 				db.updateCard(card);
-				Toast.makeText(NewCardActivity.this, "Card Edited", Toast.LENGTH_SHORT).show();
+				Toast.makeText(NewCardActivity.this, R.string.message_card_edited, Toast.LENGTH_SHORT).show();
 			}
 			Intent resultData = new Intent();
 			resultData.putExtra("cardId", card.getId());

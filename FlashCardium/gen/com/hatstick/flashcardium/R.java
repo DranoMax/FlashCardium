@@ -105,25 +105,31 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f090001;
         public static final int app_name=0x7f090000;
-        public static final int button_delete=0x7f090010;
+        public static final int button_delete=0x7f090015;
         /**  Buttons 
          */
-        public static final int button_save=0x7f09000f;
-        public static final int prompt_answer=0x7f09000c;
+        public static final int button_save=0x7f090014;
         /**  Actions 
  Messages 
- Prompts 
          */
-        public static final int prompt_deck=0x7f090008;
-        public static final int prompt_description=0x7f090009;
-        public static final int prompt_question=0x7f09000b;
-        public static final int prompt_subject=0x7f09000a;
-        public static final int text_answer=0x7f09000e;
+        public static final int message_card_created=0x7f090009;
+        public static final int message_card_edited=0x7f09000a;
+        public static final int message_deck_created=0x7f09000b;
+        public static final int message_deck_deleted=0x7f09000c;
+        public static final int prompt_answer=0x7f090011;
+        /**  Prompts 
+         */
+        public static final int prompt_deck=0x7f09000d;
+        public static final int prompt_description=0x7f09000e;
+        public static final int prompt_question=0x7f090010;
+        public static final int prompt_subject=0x7f09000f;
+        public static final int text_answer=0x7f090013;
         /**  Text 
          */
-        public static final int text_question=0x7f09000d;
-        public static final int title_activity_edit_deck=0x7f090007;
+        public static final int text_question=0x7f090012;
         public static final int title_answer=0x7f090003;
+        public static final int title_edit_card=0x7f090007;
+        public static final int title_edit_deck=0x7f090008;
         public static final int title_empty_deck=0x7f090004;
         public static final int title_new_card=0x7f090006;
         public static final int title_new_deck=0x7f090005;

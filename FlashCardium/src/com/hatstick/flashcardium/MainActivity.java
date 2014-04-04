@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
 					db = new DatabaseHandler(MainActivity.this);
 					handler.post(new Runnable() {
 						public void run() {
-							adapter = new DeckArrayAdapter(MainActivity.this,db.getAllDecks());
+							adapter = new DeckArrayAdapter(MainActivity.this, db.getAllDecks());
 							adapter.sortDecks();
 							createDeckListView();
 							dialog.dismiss();
@@ -111,8 +111,9 @@ public class MainActivity extends Activity {
 							return;
 						case 1: // Delete
 							db.deleteDeck(adapter.getItem(index).getName());
+							Toast.makeText(MainActivity.this, String.format(getResources().getString(R.string.message_deck_deleted),
+									adapter.getItem(index).getName()), Toast.LENGTH_SHORT).show();
 							adapter.remove(adapter.getItem(index));
-							Toast.makeText(MainActivity.this, "Deleted " + adapter.getItem(index).getName(), Toast.LENGTH_SHORT).show();
 							return;
 						default: // Cancel
 							return;

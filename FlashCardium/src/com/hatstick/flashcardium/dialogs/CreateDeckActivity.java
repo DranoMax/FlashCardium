@@ -41,7 +41,8 @@ public class CreateDeckActivity extends Activity {
 			Intent resultData = new Intent();
 			resultData.putExtra("deck", deck.getName());
 			setResult(Activity.RESULT_OK, resultData);
-			Toast.makeText(CreateDeckActivity.this, "Created deck "+ deck.getName(), Toast.LENGTH_SHORT).show();
+			Toast.makeText(CreateDeckActivity.this, String.format(getResources().getString(R.string.message_deck_created), 
+					deck.getName()), Toast.LENGTH_SHORT).show();
 			finish();
 		}
 	};

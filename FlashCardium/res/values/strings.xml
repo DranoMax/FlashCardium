@@ -10,12 +10,17 @@
     <string name="title_empty_deck">Empty Deck</string>
     <string name="title_new_deck">New Deck</string>
     <string name="title_new_card">New Card</string>
-    <string name="title_activity_edit_deck">Edit Deck</string>
+    <string name="title_edit_card">Edit Card</string>
+    <string name="title_edit_deck">Edit Deck</string>
 
     <!-- Actions -->
 
 
     <!-- Messages -->
+    <string name="message_card_created">Card created</string>
+    <string name="message_card_edited">Card edited</string>
+    <string name="message_deck_created">Deck %s created</string>
+    <string name="message_deck_deleted">Deleted %s</string>
 
     <!-- Prompts -->
     <string name="prompt_deck">Deck name</string>

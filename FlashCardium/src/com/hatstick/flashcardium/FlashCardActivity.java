@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.TranslateAnimation;
 
 
 public class FlashCardActivity extends FragmentActivity {
@@ -90,19 +91,23 @@ public class FlashCardActivity extends FragmentActivity {
 			private int tolerance = 50;
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
+				
 				switch(event.getAction()){
-				case MotionEvent.ACTION_MOVE:
-					return false; //This is important, if you return TRUE the action of swipe will not take place.
+				
 				case MotionEvent.ACTION_DOWN:
 					pointX = event.getX();
 					pointY = event.getY();
-					break;
+					return false;
+				case MotionEvent.ACTION_MOVE:
+				
+					return false; //This is important, if you return TRUE the action of swipe will not take place.
 				case MotionEvent.ACTION_UP:
 					boolean sameX = pointX + tolerance > event.getX() && pointX - tolerance < event.getX();
 					boolean sameY = pointY + tolerance > event.getY() && pointY - tolerance < event.getY();
 					if(sameX && sameY){
 						screenTouched();
 					}
+					return false;
 				}
 				return false;
 			}
