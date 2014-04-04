@@ -3,10 +3,10 @@
     android:id="@+id/card_array_adapter_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="5dp" 
     android:baselineAligned="false"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal"
+    android:padding="5dp" >
 
     <!-- List of cards -->
 
@@ -49,6 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:onClick="onDeleteButtonPressed"
             android:text="@string/button_delete" />
     </RelativeLayout>
 

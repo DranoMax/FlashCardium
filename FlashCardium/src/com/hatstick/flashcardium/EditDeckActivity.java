@@ -5,6 +5,7 @@ import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.tools.CardArrayAdapter;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
 import com.larphoid.overscrolllistview.OverscrollListview;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,6 +34,8 @@ public class EditDeckActivity extends Activity {
 	private static final int EDIT_CARD = 1;
 	private static final int ADD_CARD = 2;
 
+	private OverscrollListview listView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,7 +49,7 @@ public class EditDeckActivity extends Activity {
 
 		adapter = new CardArrayAdapter(this,db.getCardsFromDeck(deck));
 
-		final OverscrollListview listView = (OverscrollListview)findViewById(R.id.list);
+		listView = (OverscrollListview)findViewById(R.id.list);
 		listView.setAdapter(adapter);
 		listView.setTextFilterEnabled(true);
 		listView.setLongClickable(true);
@@ -135,7 +138,6 @@ public class EditDeckActivity extends Activity {
 				} catch (Exception e) { e.getStackTrace(); }
 			}
 			adapter.sortCards();
-			adapter.notifyDataSetChanged();
 		}
 	}
 
@@ -156,16 +158,20 @@ public class EditDeckActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		
+
 		case R.id.menu_create_object:
 			createCard();
 			return true;
-			
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
+	public void onDeleteButtonPressed(View view) {
+		deleteCard((Integer)view.getTag());
+	}
+
 	private void editCard() {
 		Intent i = new Intent(EditDeckActivity.this, NewCardActivity.class);
 		i.putExtra("deck", deck);
@@ -178,7 +184,7 @@ public class EditDeckActivity extends Activity {
 		i.putExtra("deck", deck);
 		startActivityForResult(i,ADD_CARD);
 	}
-	
+
 	private void deleteCard(int index) {
 		Card card = adapter.getItem(index);
 		db.deleteCard(card);
@@ -193,5 +199,4 @@ public class EditDeckActivity extends Activity {
 		overridePendingTransition  (R.animator.slide_in, R.animator.slide_out);
 		return;
 	}
-
 }

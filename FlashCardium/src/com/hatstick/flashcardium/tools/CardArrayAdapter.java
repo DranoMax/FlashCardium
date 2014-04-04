@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.hatstick.flashcardium.R;
 import com.hatstick.flashcardium.entities.Card;
-import com.hatstick.flashcardium.entities.Deck;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class CardArrayAdapter extends ArrayAdapter<Card>{
@@ -40,7 +40,7 @@ public class CardArrayAdapter extends ArrayAdapter<Card>{
 		View rowView = inflater.inflate(R.layout.card_array_adapter, parent, false);
 		((TextView)rowView.findViewById(R.id.question)).setText(cardList.get(position).getQuestion());
 		((TextView)rowView.findViewById(R.id.author)).setText(cardList.get(position).getAnswer());
-		
+		((Button)rowView.findViewById(R.id.delete)).setTag(position);
 		return rowView;
 	}
 	
@@ -52,5 +52,6 @@ public class CardArrayAdapter extends ArrayAdapter<Card>{
 				return (int)(card1.getId()-card2.getId());
 			}
 		});
+		this.notifyDataSetChanged();
 	}
 }
