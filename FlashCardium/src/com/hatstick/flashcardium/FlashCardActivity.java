@@ -2,13 +2,11 @@ package com.hatstick.flashcardium;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.hatstick.flashcardium.dialogs.NewCardActivity;
 import com.hatstick.flashcardium.entities.Card;
 import com.hatstick.flashcardium.tools.DatabaseHandler;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorInflater;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -21,8 +19,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.animation.TranslateAnimation;
-
 
 public class FlashCardActivity extends FragmentActivity {
 
@@ -153,7 +149,7 @@ public class FlashCardActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_main, menu);
+		inflater.inflate(R.menu.menu_flash_card_activity, menu);
 
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -166,8 +162,8 @@ public class FlashCardActivity extends FragmentActivity {
 			addCard();
 			return true;
 
-		case R.id.menu_get_update:
-			//		getCards();
+		case R.id.menu_settings:
+			settingsMenu();
 			return true;
 
 		default:
@@ -201,6 +197,10 @@ public class FlashCardActivity extends FragmentActivity {
 		Intent i = new Intent(this, NewCardActivity.class);
 		i.putExtra("deck", deckName);
 		startActivityForResult(i,1);
+	}
+	
+	private void settingsMenu() {
+		
 	}
 
 	/**

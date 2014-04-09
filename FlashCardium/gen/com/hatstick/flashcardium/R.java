@@ -36,7 +36,8 @@ public final class R {
         public static final int flashcard_portrait_back=0x7f020001;
         public static final int ic_action_new=0x7f020002;
         public static final int ic_action_search=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
+        public static final int ic_action_settings=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
     }
     public static final class id {
         public static final int EditAnswer=0x7f070007;
@@ -53,7 +54,6 @@ public final class R {
     
          */
         public static final int action_next=0x7f070000;
-        public static final int action_settings=0x7f07001c;
         public static final int answer=0x7f070012;
         public static final int author=0x7f07000e;
         public static final int btnCreateProduct=0x7f07000b;
@@ -72,6 +72,7 @@ public final class R {
         public static final int list=0x7f070002;
         public static final int menu_create_object=0x7f07001b;
         public static final int menu_get_update=0x7f07001d;
+        public static final int menu_settings=0x7f07001c;
         public static final int name=0x7f070010;
         public static final int pid=0x7f07001a;
         public static final int question=0x7f07000d;
