@@ -33,6 +33,9 @@
     <!-- Text -->
     <string name="text_question">Question</string>
     <string name="text_answer">Answer</string>
+    <string name="text_add_card">Add Card</string>
+    <string name="text_add_deck">Add Deck</string>
+    <string name="text_search">Search</string>
 
     <!-- Buttons -->
     <string name="button_save">Save</string>

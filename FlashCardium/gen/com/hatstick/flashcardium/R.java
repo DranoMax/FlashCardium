@@ -71,8 +71,9 @@ public final class R {
         public static final int layout_flashcard=0x7f070003;
         public static final int list=0x7f070002;
         public static final int menu_create_object=0x7f07001b;
-        public static final int menu_get_update=0x7f07001d;
-        public static final int menu_settings=0x7f07001c;
+        public static final int menu_get_update=0x7f07001e;
+        public static final int menu_search=0x7f07001c;
+        public static final int menu_settings=0x7f07001d;
         public static final int name=0x7f070010;
         public static final int pid=0x7f07001a;
         public static final int question=0x7f07000d;
@@ -106,10 +107,10 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f090001;
         public static final int app_name=0x7f090000;
-        public static final int button_delete=0x7f090016;
+        public static final int button_delete=0x7f090019;
         /**  Buttons 
          */
-        public static final int button_save=0x7f090015;
+        public static final int button_save=0x7f090018;
         /**  Actions 
  Messages 
          */
@@ -125,10 +126,13 @@ public final class R {
         public static final int prompt_description=0x7f09000f;
         public static final int prompt_question=0x7f090011;
         public static final int prompt_subject=0x7f090010;
+        public static final int text_add_card=0x7f090015;
+        public static final int text_add_deck=0x7f090016;
         public static final int text_answer=0x7f090014;
         /**  Text 
          */
         public static final int text_question=0x7f090013;
+        public static final int text_search=0x7f090017;
         public static final int title_answer=0x7f090003;
         public static final int title_edit_card=0x7f090007;
         public static final int title_edit_deck=0x7f090008;
